@@ -22,6 +22,7 @@ services:
         ports:
             - '80:80'
             - '443:443'
+            - '5173:5173'
         volumes:
             - ./nginx/conf.d:/etc/nginx/conf.d
             - ./:/var/www
