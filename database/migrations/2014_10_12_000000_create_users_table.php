@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         DB::statement("ALTER TABLE users ADD CONSTRAINT inviter_id_only_for_student CHECK ((role = 'student' AND inviter_id IS NOT NULL) OR (role = 'teacher' AND inviter_id IS NULL))");

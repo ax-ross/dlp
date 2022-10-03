@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\Email\Teacher\EmailRegisterRequest;
+use App\Http\Requests\Auth\EmailRegisterRequest;
+use App\Models\Invitation;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -21,8 +22,10 @@ class RegisterController extends Controller
     {
         $credentials = $request->validated();
         $credentials['password'] = Hash::make($credentials['password']);
-        $credentials['role'] = 'teacher';
         $user = User::create($credentials);
+        if (isset($credentials['invitation_code'])) {
+            Invitation::where('code', $credentials['invitation_code'])->first()->delete();
+        }
         event(new Registered($user));
         Auth::login($user);
         return redirect()->route('dashboard')->with('success', 'Вы успешно зарегестрировались. Для доступа ко всем функциям подтвердите свой email.');

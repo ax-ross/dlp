@@ -19,6 +19,18 @@
                     <label for="password_confirmation" class="form-label">Подтвердите пароль</label>
                     <input type="password" class="form-control" name="password_confirmation" id="password_confirmation">
                 </div>
+                <div class="form-check">
+                    <input type="radio" v-model="role" class="form-check-input" name="role" id="role-teacher" value="teacher">
+                    <label for="role-teacher" class="form-check-label">Я учитель</label>
+                </div>
+                <div class="form-check mb-4">
+                    <input type="radio" v-model=role class="form-check-input" name="role" id="role-student" value="student">
+                    <label for="role-student" class="form-check-label">Я ученик</label>
+                </div>
+                <div class="mb-4" v-if="role === 'student'">
+                    <label for="invitation_code" class="form-label">Пригласительный код</label>
+                    <input type="text" class="form-control" name="invitation_code" id="invitation_code">
+                </div>
                 <input type="hidden" name="_token" :value="csrf">
                 <div class="text-end mb-5">
                     <button type="submit" class="btn btn-outline-primary">Зарегестрироваться</button>
@@ -32,6 +44,11 @@
 export default {
     name: "RegisterForm",
     props: ['registerRoute'],
+    data() {
+      return {
+          role: ''
+      }
+    },
     computed: {
         csrf() {
             return document.querySelector('meta[name="csrf-token"]').getAttribute('content');

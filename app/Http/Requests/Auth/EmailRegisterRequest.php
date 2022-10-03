@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Auth\Email\Teacher;
+namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EmailRegisterRequest extends FormRequest
 {
+
+    protected $stopOnFirstFailure = true;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,7 +29,9 @@ class EmailRegisterRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email:rfc,dns|max:255|unique:users',
-            'password' => 'required|confirmed|string|min:8'
+            'password' => 'required|confirmed|string|min:8',
+            'role' => ['required', Rule::in(['teacher', 'student'])],
+            'invitation_code' => [Rule::requiredIf(fn () => $this->input('role') === 'student'), Rule::excludeIf(fn () => $this->input('role') === 'teacher')],
         ];
     }
 }
