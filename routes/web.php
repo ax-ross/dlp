@@ -27,6 +27,7 @@ Route::middleware('guest')->prefix('/auth')->group(function() {
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
-        return 'DASHBOARD';
+        return view('teacher.index');
     })->name('dashboard');
+    Route::post('/teachers/invitations', [\App\Http\Controllers\Teacher\IndexController::class, 'createInvitation']);
 });

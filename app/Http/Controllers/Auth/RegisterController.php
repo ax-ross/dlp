@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -22,10 +23,11 @@ class RegisterController extends Controller
     {
         $credentials = $request->validated();
         $credentials['password'] = Hash::make($credentials['password']);
-        $user = User::create($credentials);
         if (isset($credentials['invitation_code'])) {
+            $credentials['inviter_id'] = Invitation::getInviterId($credentials['invitation_code']);
             Invitation::where('code', $credentials['invitation_code'])->first()->delete();
         }
+        $user = User::create($credentials);
         event(new Registered($user));
         Auth::login($user);
         return redirect()->route('dashboard')->with('success', 'Вы успешно зарегестрировались. Для доступа ко всем функциям подтвердите свой email.');
