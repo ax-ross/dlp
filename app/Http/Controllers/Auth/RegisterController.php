@@ -23,11 +23,18 @@ class RegisterController extends Controller
     {
         $credentials = $request->validated();
         $credentials['password'] = Hash::make($credentials['password']);
-        if (isset($credentials['invitation_code'])) {
-            $credentials['inviter_id'] = Invitation::getInviterId($credentials['invitation_code']);
-            Invitation::where('code', $credentials['invitation_code'])->first()->delete();
+        DB::beginTransaction();
+        try {
+            if (isset($credentials['invitation_code'])) {
+                $credentials['inviter_id'] = Invitation::getInviterId($credentials['invitation_code']);
+                Invitation::where('code', $credentials['invitation_code'])->first()->delete();
+            }
+            $user = User::create($credentials);
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            throw $e;
         }
-        $user = User::create($credentials);
         event(new Registered($user));
         Auth::login($user);
         return redirect()->route('dashboard')->with('success', 'Вы успешно зарегестрировались. Для доступа ко всем функциям подтвердите свой email.');
