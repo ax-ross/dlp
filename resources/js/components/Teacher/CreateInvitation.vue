@@ -29,9 +29,7 @@ export default {
         createInvitation()
         {
             axios.post('/teachers/invitations', {email: this.email}).then(res => {
-                console.log(res);
                 this.code = res.data.data['code'];
-                console.log(this.code)
             })
         }
     }

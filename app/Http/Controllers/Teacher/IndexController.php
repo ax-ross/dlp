@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Teacher;
 
+use App\Events\InvitationCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateInvitationRequest;
 use App\Http\Resources\InvitationResource;
@@ -20,6 +21,7 @@ class IndexController extends Controller
         $validated = $request->validated();
         $inviterId = $request->user()->id;
         $invitation = Invitation::createInvitation($inviterId, $validated['email']);
+        event(new InvitationCreated(auth()->user(), $validated['email'], $invitation->code));
         return new InvitationResource($invitation);
     }
 }

@@ -9,7 +9,7 @@ window._ = _;
 
 import axios from 'axios';
 
-const appUrl = 'http://localhost';
+const appUrl = 'http://127.0.0.1';
 
 window.axios = axios;
 
