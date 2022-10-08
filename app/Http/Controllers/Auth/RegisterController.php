@@ -37,6 +37,11 @@ class RegisterController extends Controller
         }
         event(new Registered($user));
         Auth::login($user);
+
+        if ($user->isTeacher()) {
+            return redirect()->route('teacher.dashboard')->with('success', 'Вы успешно зарегестрировались. Для доступа ко всем функциям подтвердите свой email.');
+        }
+
         return redirect()->route('dashboard')->with('success', 'Вы успешно зарегестрировались. Для доступа ко всем функциям подтвердите свой email.');
     }
 }

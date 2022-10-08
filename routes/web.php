@@ -27,7 +27,14 @@ Route::middleware('guest')->prefix('/auth')->group(function() {
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
-        return view('teacher.index');
+        return 'STUDENT';
     })->name('dashboard');
-    Route::post('/teachers/invitations', [\App\Http\Controllers\Teacher\IndexController::class, 'createInvitation']);
+
+});
+
+Route::middleware('auth')->group(function () {
+    Route::middleware('teacher')->group(function () {
+        Route::get('/teacher/dashboard', [\App\Http\Controllers\Teacher\IndexController::class, 'index'])->name('teacher.dashboard');
+        Route::post('/teacher/invitations', [\App\Http\Controllers\Teacher\IndexController::class, 'createInvitation'])->name('teacher.invitation.create');
+    });
 });
