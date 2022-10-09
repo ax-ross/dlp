@@ -16,10 +16,6 @@ class EnsureUserIsTeacher
      */
     public function handle(Request $request, Closure $next)
     {
-        if (is_null($request->user())) {
-            redirect()->route('login');
-        }
-
         if (!$request->user()->isTeacher()) {
             abort(404);
         }

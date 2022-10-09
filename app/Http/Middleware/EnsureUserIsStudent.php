@@ -16,10 +16,6 @@ class EnsureUserIsStudent
      */
     public function handle(Request $request, Closure $next)
     {
-        if (is_null($request->user())) {
-            redirect()->route('login');
-        }
-
         if (!$request->user()->isStudent()) {
             abort(404);
         }
