@@ -1,7 +1,7 @@
 <template>
     <div class="container register d-flex justify-content-center align-items-center">
         <div class="row col-lg-4 col-md-6">
-            <form :action=registerRoute class="p-5" method="POST">
+            <form :action="route('register.store')" class="p-5" method="POST">
                 <p class="fw-bold text-center fs-4">Регистрация</p>
                 <div class="mb-3">
                     <label for="name" class="form-label">Имя</label>
@@ -43,7 +43,6 @@
 <script>
 export default {
     name: "RegisterForm",
-    props: ['registerRoute'],
     data() {
       return {
           role: ''
