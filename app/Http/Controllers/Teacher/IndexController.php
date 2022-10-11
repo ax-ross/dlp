@@ -11,11 +11,6 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
-    public function index()
-    {
-        return view('teacher.index');
-    }
-
     public function createInvitation(CreateInvitationRequest $request)
     {
         $validated = $request->validated();

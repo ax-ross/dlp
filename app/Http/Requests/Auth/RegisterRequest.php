@@ -5,7 +5,7 @@ namespace App\Http\Requests\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class EmailRegisterRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
 
     protected $stopOnFirstFailure = true;

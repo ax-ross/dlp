@@ -1,22 +1,14 @@
 import './bootstrap';
 
-import '../css/styles.scss'
+import { createApp } from 'vue/dist/vue.esm-bundler';
+import App from "./components/App.vue";
+import router from "./router";
 
-import * as bootstrap from 'bootstrap'
-
-import {createApp} from 'vue/dist/vue.esm-bundler';
-import RegisterForm from "./components/Auth/RegisterForm.vue";
-import CreateInvitation from "./components/Teacher/CreateInvitation.vue";
-import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
-import { Ziggy } from './ziggy';
-
-const RegisterFormApp = createApp({
+const app = createApp({
     components: {
-        RegisterForm
+        App,
     }
-}).use(ZiggyVue, Ziggy).mount('#register-form');
-const CreateInvitationApp = createApp({
-   components: {
-       CreateInvitation
-   }
-}).mount('#create-invitation');
+});
+
+app.use(router);
+app.mount('#app');

@@ -13,28 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\IndexController::class, 'index']);
+Route::middleware('guest')->group(function() {
+//    Route::get('/register', [\App\Http\Controllers\Auth\RegisterController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register', [\App\Http\Controllers\Auth\RegisterController::class, 'register']);
 
-Route::middleware('guest')->prefix('/auth')->group(function() {
-    Route::get('/', [\App\Http\Controllers\Auth\AuthController::class, 'index'])->name('auth');
-    Route::prefix('/register')->name('register.')->group(function() {
-        Route::get('/', [\App\Http\Controllers\Auth\RegisterController::class, 'showRegisterForm'])->name('show');
-        Route::post('/', [\App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('store');
-    });
+//    Route::get('/login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [\App\Http\Controllers\Auth\LoginController::class, 'login']);
 });
 
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return 'STUDENT';
-    })->name('dashboard');
 
-});
-
-Route::middleware('auth')->group(function () {
-    Route::middleware('teacher')->group(function () {
-        Route::get('/teacher/dashboard', [\App\Http\Controllers\Teacher\IndexController::class, 'index'])->name('teacher.dashboard');
-        Route::post('/teacher/invitations', [\App\Http\Controllers\Teacher\IndexController::class, 'createInvitation'])->name('teacher.invitation.create');
-    });
-});
+Route::get('/{any}', function () {
+    return view('index');
+})->where("any", ".*");

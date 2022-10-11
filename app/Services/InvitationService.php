@@ -10,6 +10,8 @@ class InvitationService
 {
     public function sendInvitation(User $from, string $to, string $code)
     {
-        Mail::to($to)->send(new InvitationMail($from, $code));
+        if ($to) {
+            Mail::to($to)->send(new InvitationMail($from, $code));
+        }
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\EmailRegisterRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\Invitation;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -14,12 +14,7 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function showRegisterForm(Request $request)
-    {
-        return view('auth.register');
-    }
-
-    public function register(EmailRegisterRequest $request)
+    public function register(RegisterRequest $request)
     {
         $credentials = $request->validated();
         $credentials['password'] = Hash::make($credentials['password']);
@@ -39,9 +34,9 @@ class RegisterController extends Controller
         Auth::login($user);
 
         if ($user->isTeacher()) {
-            return redirect()->route('teacher.dashboard')->with('success', 'Вы успешно зарегестрировались. Для доступа ко всем функциям подтвердите свой email.');
+            return redirect()->route('teacher')->with('success', 'Вы успешно зарегестрировались. Для доступа ко всем функциям подтвердите свой email.');
         }
 
-        return redirect()->route('dashboard')->with('success', 'Вы успешно зарегестрировались. Для доступа ко всем функциям подтвердите свой email.');
+        return redirect()->route('student')->with('success', 'Вы успешно зарегестрировались. Для доступа ко всем функциям подтвердите свой email.');
     }
 }

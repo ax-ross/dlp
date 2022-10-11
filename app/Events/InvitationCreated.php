@@ -20,8 +20,11 @@ class InvitationCreated
      *
      * @return void
      */
-    public function __construct(public User $from, public string $to, public string $code)
+    public function __construct(public User $from, public string|null $to, public string $code)
     {
+        if (is_null($this->to)) {
+            $this->to = '';
+        }
     }
 
 }

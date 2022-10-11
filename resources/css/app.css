@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*.register, .login{*/
+/*    height: 100vh;*/
+/*}*/
+/*.register form, .login form {*/
+/*    box-shadow: 0 0 30px 0 #05113F33;*/
+/*    border-radius: 5px;*/
+/*}*/

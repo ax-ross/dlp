@@ -1,14 +1,16 @@
-@extends('layouts.main')
-@section('content')
-<div class="container  mt-5 pt-5">
-    <div class="d-flex justify-content-center">
-        <p class="display-3 text-center">Добро пожаловать <br>
-            на Платформу дистанционного обучения
-        </p>
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
+</head>
+<body>
+    <div id="app">
+        <app></app>
     </div>
-    <div class="d-flex justify-content-center mt-3">
-        <a href="{{ route('auth') }}" class="btn btn-secondary btn-lg fs-1">приступить</a>
-    </div>
-
-</div>
-@endsection
+</body>
+</html>
