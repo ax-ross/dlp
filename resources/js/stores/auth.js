@@ -2,12 +2,8 @@ import { defineStore } from "pinia";
 
 export const useAuthStore = defineStore('auth', {
     state: () => ({ authenticated: false, user: {} }),
-    getters: {
-        authenticated: (state) => state.authenticated,
-        user: (state) => state.user
-    },
     actions: {
-        login() {
+        addAuthUserToStore() {
             return axios.get('/api/user').then(({data}) => {
                 this.user = data;
                 this.authenticated = true;
@@ -16,7 +12,7 @@ export const useAuthStore = defineStore('auth', {
                 this.authenticated = false;
             })
         },
-        logout() {
+        removeAuthUserFromStore() {
             this.user = {};
             this.authenticated = false;
         }

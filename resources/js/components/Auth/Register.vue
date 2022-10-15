@@ -48,11 +48,17 @@
 <script>
 import AuthLayout from "../../layouts/AuthLayout.vue";
 import router from "../../router";
+import {useAuthStore} from "../../stores/auth";
 
 export default {
     name: "Register",
     components: {
         AuthLayout
+    },
+    setup() {
+        const authStore = useAuthStore();
+
+        return  { authStore }
     },
     data() {
         return {
@@ -66,10 +72,21 @@ export default {
     },
     methods: {
         register() {
-            axios.get('/sanctum/csrf-cookie');
-            axios.post('/register', {name: this.name, email: this.email, password: this.password, password_confirmation: this.password_confirmation, role: this.role, invitation_code: this.invitation_code}).then(({data}) => {
-                router.push( {name: 'teacher'} )
-            })
+            axios.get('/sanctum/csrf-cookie').then(response => {
+                axios.post('/register', {name: this.name, email: this.email, password: this.password, password_confirmation: this.password_confirmation, role: this.role, invitation_code: this.invitation_code}).then(async ({data}) => {
+                    await this.authStore.addAuthUserToStore();
+                    if (this.authStore.authenticated) {
+                        if (this.authStore.user.role === 'teacher') {
+                            await router.push({name: 'teacher'});
+                        } else {
+                            await router.push({name: 'student'});
+                        }
+                    } else {
+                        await router.push({name: 'index'})
+                    }
+                })
+            });
+
         }
     },
 

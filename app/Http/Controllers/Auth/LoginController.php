@@ -17,7 +17,9 @@ class LoginController extends Controller
             if (auth()->user()->isTeacher()) {
                 return redirect()->intended('teacher');
             }
-            return redirect()->intended('student');
+            return response()->json([
+                'message' => 'ok'
+            ]);
         }
 
         if (!Auth::attempt($request->only('email', 'password'))) {
