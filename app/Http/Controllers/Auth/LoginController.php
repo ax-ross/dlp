@@ -14,18 +14,9 @@ class LoginController extends Controller
     {
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
-            if (auth()->user()->isTeacher()) {
-                return redirect()->intended('teacher');
-            }
-            return response()->json([
-                'message' => 'ok'
-            ]);
-        }
-
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            return back()->withErrors([
-                'login' => 'Неверное имя пользователя или пароль.'
-            ]);
+            return response()->noContent();
+        } else {
+            return response()->json(['errors' => ['login' => 'Неверный email или пароль']], 422);
         }
     }
 }
