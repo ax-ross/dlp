@@ -53,6 +53,20 @@ services:
             - '8025:8025'
         networks:
             - app-network
+    centrifugo:
+        container_name: centrifugo
+        image: centrifugo/centrifugo:v4
+        volumes:
+            - ./centrifugo/config.json:/centrifugo/config.json
+        command: centrifugo -c config.json
+        ports:
+            - 8000:8000
+        ulimits:
+            nofile:
+                soft: 65535
+                hard: 65535
+        networks:
+            - app-network
 networks:
     app-network:
         driver: bridge
