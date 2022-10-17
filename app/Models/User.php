@@ -22,7 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'inviter_id',
+        'student_id',
+        'teacher_id',
         'role'
     ];
 
@@ -53,5 +54,26 @@ class User extends Authenticatable
     public function isStudent(): bool
     {
         return $this->role === 'student';
+    }
+
+    public function rooms()
+    {
+        return $this->belongsToMany(Room::class, 'users_rooms');
+    }
+
+    public function teacher()
+    {
+        if ($this->role === 'student') {
+            return null;
+        }
+        return $this->belongsTo(Teacher::class);
+    }
+
+    public function student()
+    {
+        if ($this->role === 'teacher') {
+            return null;
+        }
+        return $this->belongsTo(Student::class);
     }
 }

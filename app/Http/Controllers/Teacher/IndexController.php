@@ -14,9 +14,10 @@ class IndexController extends Controller
     public function createInvitation(CreateInvitationRequest $request)
     {
         $validated = $request->validated();
-        $inviterId = $request->user()->id;
-        $invitation = Invitation::createInvitation($inviterId, $validated['email']);
-        event(new InvitationCreated(auth()->user(), $validated['email'], $invitation->code));
+        $user = $request->user();
+        $teacher = $user->teacher;
+        $invitation = Invitation::createInvitation($teacher->id, $validated['email']);
+        event(new InvitationCreated($user, $validated['email'], $invitation->code));
         return new InvitationResource($invitation);
     }
 }
