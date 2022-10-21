@@ -1,6 +1,6 @@
-export default function teacher({ next, authStore }) {
+export default function teacher({ next, authStore, nextMiddleware }) {
     if (authStore.user.role === 'teacher') {
-        next();
+        nextMiddleware();
     } else {
         next({ name: 'student' })
     }

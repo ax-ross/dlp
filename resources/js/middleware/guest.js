@@ -1,4 +1,4 @@
-export default function guest({ next, authStore }) {
+export default function guest({ next, authStore, nextMiddleware }) {
     if (!authStore.authenticated) {
         authStore.addAuthUserToStore().then(() => {
            if (authStore.authenticated) {
@@ -8,10 +8,10 @@ export default function guest({ next, authStore }) {
                    next( { name: 'student' } )
                }
            } else {
-               next()
+               nextMiddleware()
            }
         });
     } else {
-        next();
+        nextMiddleware();
     }
 }

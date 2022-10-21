@@ -54,6 +54,15 @@ const routes = [
             middleware: [auth, student],
             title: 'Student'
         }
+    },
+    {
+        path: '/chats',
+        name: 'rooms',
+        component: () => import('../components/Room/Index.vue'),
+        meta: {
+            middleware: [auth],
+            title: 'Chats'
+        }
     }
 ];
 
@@ -72,33 +81,10 @@ router.beforeEach((to, from, next) => {
     if (!middleware) {
         return next();
     }
-    middleware[0]({
+    return middleware[0]({
         ...context,
-        next: middlewarePipeline(context, middleware, 1),
+        nextMiddleware: middlewarePipeline(context, middleware, 1),
     })
-
-    // if (to.meta.middleware === 'auth' && !authStore.authenticated) {
-    //     authStore.addAuthUserToStore().then(() => {
-    //         if (!authStore.authenticated) {
-    //             next ({ name: 'login' });
-    //         } else {
-    //             next();
-    //         }
-    //     })
-    // } else {
-    //     next();
-    // }
-    // if (to.meta.middleware === 'guest') {
-    //     if (authStore.authenticated) {
-    //         next({ name: 'teacher' })
-    //     } else next()
-    // } else if (to.meta.middleware === 'auth') {
-    //     if (authStore.authenticated) {
-    //         next()
-    //     } else {
-    //         next({ name: 'login' })
-    //     }
-    // }
 });
 
 export default router;
