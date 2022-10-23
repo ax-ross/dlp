@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
-use App\Models\Room;
+use App\Models\Chat;
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class RoomController extends Controller
+class ChatController extends Controller
 {
     public function __construct(private Centrifugo $centrifugo)
     {
@@ -17,7 +17,7 @@ class RoomController extends Controller
 
     public function index()
     {
-        $rooms = Room::with(['users', 'messages' => function ($query) {
+        $rooms = Chat::with(['users', 'messages' => function ($query) {
             $query->orderBy('created_at', 'asc');
         }])->orderBy('created_at', 'desc')->get();
         return $rooms;
@@ -25,7 +25,7 @@ class RoomController extends Controller
 
     public function show(int $id)
     {
-        $room = Room::with(['users', 'messages.user' => function ($query) {
+        $room = Chat::with(['users', 'messages.user' => function ($query) {
             $query->orderBy('created_at', 'asc');
         }])->find($id);
 
@@ -34,7 +34,7 @@ class RoomController extends Controller
 
     public function join(int $id)
     {
-        $room = Room::find($id);
+        $room = Chat::find($id);
         $room->users()->attach(auth()->user());
         return response()->noContent();
     }
@@ -45,7 +45,7 @@ class RoomController extends Controller
             'name' => ['required', 'string', 'max:32', 'unique:rooms'],
         ]);
 
-        $room = Room::create(['name' => $request->get('name')]);
+        $room = Chat::create(['name' => $request->get('name')]);
         $room->users()->attach(Auth::user()->id);
 
         return $room->id;
@@ -59,7 +59,7 @@ class RoomController extends Controller
             'message' => $requestData["message"],
             'room_id' => $id,
         ]);
-        $room = Room::with('users')->find($id);
+        $room = Chat::with('users')->find($id);
 
         $channels = [];
         foreach ($room->users as $user) {

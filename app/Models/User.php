@@ -56,9 +56,9 @@ class User extends Authenticatable
         return $this->role === 'student';
     }
 
-    public function rooms()
+    public function chats()
     {
-        return $this->belongsToMany(Room::class, 'users_rooms');
+        return $this->belongsToMany(Chat::class, 'users_chats');
     }
 
     public function teacher()
@@ -66,7 +66,7 @@ class User extends Authenticatable
         if ($this->role === 'student') {
             return null;
         }
-        return $this->belongsTo(Teacher::class);
+        return $this->hasOne(Teacher::class)->withDefault();
     }
 
     public function student()
@@ -74,6 +74,6 @@ class User extends Authenticatable
         if ($this->role === 'teacher') {
             return null;
         }
-        return $this->belongsTo(Student::class);
+        return $this->hasOne(Student::class)->withDefault();
     }
 }

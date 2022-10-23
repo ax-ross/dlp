@@ -18,9 +18,8 @@ class RegisterService
         $credentials['password'] = Hash::make($credentials['password']);
         DB::beginTransaction();
         try {
-            $teacher = Teacher::create();
-            $credentials['teacher_id'] = $teacher->id;
-            $user = $teacher->user()->create($credentials);
+            $user = User::create($credentials);
+            $user->teacher()->create();
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollBack();
@@ -36,11 +35,8 @@ class RegisterService
         DB::beginTransaction();
         try {
 
-            $student = Student::create([
-                'inviter_id' => Invitation::getInviterId($credentials['invitation_code'])
-            ]);
-            $credentials['student_id'] = $student->id;
-            $user = $student->user()->create($credentials);
+            $user = User::create($credentials);
+            $user->student()->create(['inviter_id' => Invitation::getInviterId($credentials['invitation_code'])]);
             Invitation::where('code', $credentials['invitation_code'])->first()->delete();
             DB::commit();
         } catch (\Throwable $e) {

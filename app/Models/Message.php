@@ -9,11 +9,11 @@ class Message extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['message', 'room_id', 'sender_id'];
+    protected $fillable = ['message', 'chat_id', 'sender_id'];
 
-    public function room()
+    public function chat()
     {
-        return $this->hasOne(Room::class);
+        return $this->hasOne(Chat::class);
     }
 
     public function user()

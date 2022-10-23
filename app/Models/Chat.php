@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Room extends Model
+class Chat extends Model
 {
     use HasFactory;
 
@@ -13,7 +13,7 @@ class Room extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_room');
+        return $this->belongsToMany(User::class, 'user_chat');
     }
 
     public function messages()
