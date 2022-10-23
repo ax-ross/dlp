@@ -8,6 +8,7 @@ window._ = _;
  */
 
 import axios from 'axios';
+import {Centrifuge} from "centrifuge";
 
 const appUrl = 'http://127.0.0.1';
 
@@ -21,6 +22,12 @@ window.axios.defaults.withCredentials = true;
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allows your team to easily build robust real-time web applications.
  */
+
+const centrifuge = new Centrifuge('ws://127.0.0.1:8000/connection/websocket', {
+    debug: true,
+    timeout: 20000
+});
+window.centrifuge = centrifuge;
 
 // import Echo from 'laravel-echo';
 

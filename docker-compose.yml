@@ -4,6 +4,8 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+        expose:
+            -  '9000'
         restart: unless-stopped
         tty: true
         environment:
@@ -60,7 +62,7 @@ services:
             - ./centrifugo/config.json:/centrifugo/config.json
         command: centrifugo -c config.json
         ports:
-            - 8000:8000
+            - '8000:8000'
         ulimits:
             nofile:
                 soft: 65535
