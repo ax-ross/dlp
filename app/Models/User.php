@@ -22,8 +22,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'student_id',
-        'teacher_id',
         'role'
     ];
 
@@ -59,21 +57,5 @@ class User extends Authenticatable
     public function chats()
     {
         return $this->belongsToMany(Chat::class, 'users_chats');
-    }
-
-    public function teacher()
-    {
-        if ($this->role === 'student') {
-            return null;
-        }
-        return $this->hasOne(Teacher::class)->withDefault();
-    }
-
-    public function student()
-    {
-        if ($this->role === 'teacher') {
-            return null;
-        }
-        return $this->hasOne(Student::class)->withDefault();
     }
 }

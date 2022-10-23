@@ -42,10 +42,9 @@ class ChatController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:32', 'unique:rooms'],
+            'title' => ['required', 'string', 'max:32', 'unique:chats'],
         ]);
-
-        $room = Chat::create(['name' => $request->get('name')]);
+        $room = Chat::create(['title' => $request->get('title')]);
         $room->users()->attach(Auth::user()->id);
 
         return $room->id;
@@ -57,7 +56,7 @@ class ChatController extends Controller
         $message = Message::create([
             'sender_id' => Auth::user()->id,
             'message' => $requestData["message"],
-            'room_id' => $id,
+            'chat_id' => $id,
         ]);
         $room = Chat::with('users')->find($id);
 

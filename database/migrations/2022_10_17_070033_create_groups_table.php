@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('teacher_id')->constrained()->references('id')->on('teachers');
+            $table->string('title');
+            $table->foreignId('teacher_id')->constrained()->references('id')->on('users');
             $table->timestamps();
         });
     }

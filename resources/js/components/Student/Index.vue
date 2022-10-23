@@ -4,7 +4,17 @@
 
 <script>
 export default {
-    name: "Index"
+    name: "Index",
+    mounted() {
+        this.test()
+    },
+     methods: {
+        test() {
+            axios.get('/api/users/').then((data) => {
+                console.log(data);
+            })
+        }
+     }
 }
 </script>
 

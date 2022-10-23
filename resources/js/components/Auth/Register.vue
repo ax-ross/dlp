@@ -47,17 +47,6 @@
                     <input v-model=role type="radio" id="role-student" value="student">
                     <label for="role-student" class="pl-1.5">Я ученик</label>
                 </div>
-                <div class="flex flex-col mb-10" v-if="role === 'student'">
-                    <label for="invitation_code" class="mb-2 pl-3">Пригласительный код</label>
-                    <input v-model="invitation_code" type="text" class="border rounded-lg p-1.5 pl-3" id="invitation_code">
-                    <div v-if="validationErrors.invitation_code" class="mt-1.5">
-                        <div v-for="error in validationErrors.invitation_code">
-                            <div class="text-red-600 text-sm">
-                                {{ error }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="text-center mb-10">
                     <button @click.prevent="register" class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">Зарегестрироваться</button>
                 </div>
@@ -91,14 +80,13 @@ export default {
             password: '',
             password_confirmation: '',
             role: '',
-            invitation_code: '',
             validationErrors: {}
         }
     },
     methods: {
         register() {
             axios.get('/sanctum/csrf-cookie').then(response => {
-                axios.post('/register', {name: this.name, email: this.email, password: this.password, password_confirmation: this.password_confirmation, role: this.role, invitation_code: this.invitation_code}).then(async ({data}) => {
+                axios.post('/register', {name: this.name, email: this.email, password: this.password, password_confirmation: this.password_confirmation, role: this.role}).then(async ({data}) => {
                     await this.authStore.addAuthUserToStore();
                     if (this.authStore.authenticated) {
                         if (this.authStore.user.role === 'teacher') {

@@ -24,11 +24,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::middleware('teacher')->group(function () {
-        Route::post('/teacher/invitations', [\App\Http\Controllers\Teacher\IndexController::class, 'createInvitation']);
+        Route::get('/groups', [\App\Http\Controllers\GroupController::class, 'index']);
     });
 
-    Route::get('/rooms', [\App\Http\Controllers\RoomController::class, 'index']);
-    Route::post('/rooms', [\App\Http\Controllers\RoomController::class, 'store']);
-    Route::get('/rooms/{room}', [\App\Http\Controllers\RoomController::class, 'show']);
-    Route::post('/rooms/{rooms}/publish', [\App\Http\Controllers\RoomController::class, 'publish']);
+    Route::get('/rooms', [\App\Http\Controllers\ChatController::class, 'index']);
+    Route::post('/rooms', [\App\Http\Controllers\ChatController::class, 'store']);
+    Route::get('/rooms/{room}', [\App\Http\Controllers\ChatController::class, 'show']);
+    Route::post('/rooms/{rooms}/publish', [\App\Http\Controllers\ChatController::class, 'publish']);
 });

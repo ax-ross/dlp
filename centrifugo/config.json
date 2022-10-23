@@ -4,8 +4,6 @@
     "admin_password": "password",
     "admin_secret": "secret",
     "admin": true,
-    "engine": "memory",
-    "debug": true,
     "namespaces": [
         {
             "name": "personal",
@@ -15,12 +13,10 @@
     ],
     "allowed_origins": [
         "http://localhost",
-        "http://127.0.0.1",
-        "http://app",
-        "app"
+        "http://127.0.0.1"
     ],
     "proxy_connect_endpoint": "http://webserver/api/centrifugo/connect",
-    "proxy_connect_timeout": "10s",
+    "proxy_connect_timeout": "1s",
     "proxy_http_headers": [
         "Origin",
         "User-Agent",

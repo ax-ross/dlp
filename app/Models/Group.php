@@ -11,11 +11,11 @@ class Group extends Model
 
     public function teacher()
     {
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsTo(User::class);
     }
 
     public function students()
     {
-        return $this->belongsToMany(Student::class);
+        return $this->belongsToMany(User::class);
     }
 }

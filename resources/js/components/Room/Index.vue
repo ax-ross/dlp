@@ -79,7 +79,7 @@ export default {
             }).on('disconnected', function (ctx) {
                 console.log(`disconnected: ${ctx.code}, ${ctx.reason}`);
             }).connect();
-            const sub = centrifuge.newSubscription("personal:user#1");
+            const sub = centrifuge.newSubscription("personal:user#" + this.authStore.user.id);
 
             sub.on('publication', function (ctx) {
                 console.log('НОВОЕ СООБЩЕНИЕ')
@@ -93,7 +93,7 @@ export default {
             }).subscribe();
         },
         createRoom() {
-            axios.post('/api/rooms/', {'name': this.name}).then( (data) => {
+            axios.post('/api/rooms/', {'title': this.name}).then( (data) => {
             })
         },
         getRooms(){

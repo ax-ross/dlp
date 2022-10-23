@@ -31,7 +31,6 @@ class RegisterRequest extends FormRequest
             'email' => 'required|email:rfc,dns|max:255|unique:users',
             'password' => 'required|confirmed|string|min:8',
             'role' => ['required', Rule::in(['teacher', 'student'])],
-            'invitation_code' => [Rule::requiredIf(fn () => $this->input('role') === 'student'), Rule::excludeIf(fn () => $this->input('role') === 'teacher'), 'exists:invitations,code'],
         ];
     }
 }
