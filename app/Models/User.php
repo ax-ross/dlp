@@ -54,8 +54,43 @@ class User extends Authenticatable
         return $this->role === 'student';
     }
 
+    public function scopeStudents($query)
+    {
+        return $query->where('role', 'student');
+    }
+
+    public function scopeTeachers($query)
+    {
+        return $query->where('role', 'teacher');
+    }
+
     public function chats()
     {
         return $this->belongsToMany(Chat::class, 'users_chats');
+    }
+
+    public function teacherCourses()
+    {
+        if ($this->isStudent()) {
+            return null;
+        }
+        return $this->hasMany(Course::class, 'teacher_id', 'id');
+    }
+
+    public function studentCourses()
+    {
+        if ($this->isTeacher()) {
+            return null;
+        }
+        return $this->belongsToMany(Course::class, 'course_student', 'user_id', 'course_id');
+    }
+
+    public function getCourses()
+    {
+        if ($this->isTeacher()) {
+            return $this->teacherCourses;
+        } else {
+            return $this->studentCourses;
+        }
     }
 }

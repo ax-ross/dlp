@@ -6,7 +6,7 @@
                 <input v-model="name" type="text" class="border rounded-lg p-1.5 pl-3" id="name">
             </div>
             <div class="text-center mb-10">
-                <button @click.prevent="createRoom()"  class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">Создать</button>
+                <button @click.prevent="createChat()"  class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">Создать</button>
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@ export default {
         return  { authStore }
     },
     mounted() {
-        this.getRooms();
+        this.getChats();
         this.connectChat();
     },
     methods: {
@@ -92,11 +92,11 @@ export default {
                 console.log(`unsubscribed: ${ctx.code}, ${ctx.reason}`);
             }).subscribe();
         },
-        createRoom() {
+        createChat() {
             axios.post('/api/rooms/', {'title': this.name}).then( (data) => {
             })
         },
-        getRooms(){
+        getChats(){
             axios.get('/api/rooms/').then( (data) => {
                 this.rooms = data.data;
             })

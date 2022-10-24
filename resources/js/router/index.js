@@ -57,11 +57,20 @@ const routes = [
     },
     {
         path: '/chats',
-        name: 'rooms',
-        component: () => import('../components/Room/Index.vue'),
+        name: 'chats',
+        component: () => import('../components/Chat/Index.vue'),
         meta: {
             middleware: [auth],
             title: 'Chats'
+        }
+    },
+    {
+        path: '/courses',
+        name: 'courses',
+        component: () => import('../components/Course/Index.vue'),
+        meta: {
+            middleware: [auth],
+            title: 'Courses'
         }
     }
 ];

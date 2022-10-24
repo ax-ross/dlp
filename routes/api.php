@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::middleware('teacher')->group(function () {
-        Route::get('/groups', [\App\Http\Controllers\GroupController::class, 'index']);
+        Route::get('/courses', [\App\Http\Controllers\CourseController::class, 'index']);
     });
 
     Route::get('/rooms', [\App\Http\Controllers\ChatController::class, 'index']);
