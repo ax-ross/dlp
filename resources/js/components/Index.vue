@@ -21,17 +21,6 @@ import router from '../router';
 
 export default {
     name: "Index",
-    // beforeCreate() {
-    //     ...mapState(useAuthStore, ['authenticated', 'user']);
-    //     if (this.authenticated) {
-    //         if (this.user.role === 'teacher') {
-    //             router.push({ name: 'teacher' })
-    //         } else if (this.user.role === 'student') {
-    //             router.push({ name: 'student' });
-    //         }
-    //     }
-    // }
-
 }
 </script>
 

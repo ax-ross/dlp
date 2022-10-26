@@ -62,16 +62,15 @@
 import AuthLayout from "../../layouts/AuthLayout.vue";
 import router from "../../router";
 import {useAuthStore} from "../../stores/auth";
+import {mapStores} from "pinia";
 
 export default {
     name: "Register",
     components: {
         AuthLayout
     },
-    setup() {
-        const authStore = useAuthStore();
-
-        return  { authStore }
+    computed: {
+        ...mapStores(useAuthStore),
     },
     data() {
         return {

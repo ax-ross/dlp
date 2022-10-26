@@ -1,12 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import App from "../components/App.vue";
-import Index from "../components/Index.vue"
 import { useAuthStore } from '../stores/auth'
 import guest from "../middleware/guest";
 import auth from "../middleware/auth";
 import teacher from "../middleware/teacher";
 import student from "../middleware/student";
 import middlewarePipeline from "./middlewarePipeline";
+import Index from "../components/Index.vue";
 
 
 const routes = [
@@ -44,7 +43,27 @@ const routes = [
         meta: {
             middleware: [auth, teacher],
             title: 'Teacher'
-        }
+        },
+        children: [
+            {
+                path: '/teacher/chats',
+                name: 'teacher.chats',
+                component: () => import('../components/Teacher/Chat/Index.vue'),
+                meta: {
+                    middleware: [auth, teacher],
+                    title: 'Chats'
+                }
+            },
+            {
+                path: '/teacher/courses',
+                name: 'teacher.courses',
+                component: () => import('../components/Teacher/Course/Index.vue'),
+                meta: {
+                    middleware: [auth, teacher],
+                    title: 'Courses'
+                }
+            }
+        ]
     },
     {
         path: '/student',
@@ -53,26 +72,28 @@ const routes = [
         meta: {
             middleware: [auth, student],
             title: 'Student'
-        }
+        },
+        children: [
+            {
+                path: '/student/chats',
+                name: 'student.chats',
+                component: () => import('../components/Student/Chat/Index.vue'),
+                meta: {
+                    middleware: [auth, student],
+                    title: 'Chats'
+                }
+            },
+            {
+                path: '/student/courses',
+                name: 'student.courses',
+                component: () => import('../components/Student/Course/Index.vue'),
+                meta: {
+                    middleware: [auth, student],
+                    title: 'Courses'
+                }
+            }
+        ]
     },
-    {
-        path: '/chats',
-        name: 'chats',
-        component: () => import('../components/Chat/Index.vue'),
-        meta: {
-            middleware: [auth],
-            title: 'Chats'
-        }
-    },
-    {
-        path: '/courses',
-        name: 'courses',
-        component: () => import('../components/Course/Index.vue'),
-        meta: {
-            middleware: [auth],
-            title: 'Courses'
-        }
-    }
 ];
 
 const router = createRouter({

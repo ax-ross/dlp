@@ -23,11 +23,6 @@ window.axios.defaults.withCredentials = true;
  * allows your team to easily build robust real-time web applications.
  */
 
-const centrifuge = new Centrifuge('ws://127.0.0.1:8000/connection/websocket', {
-    debug: true,
-    timeout: 20000
-});
-window.centrifuge = centrifuge;
 
 // import Echo from 'laravel-echo';
 
