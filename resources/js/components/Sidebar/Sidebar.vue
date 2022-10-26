@@ -1,11 +1,13 @@
 <template>
-<!--    <button class="flex items-center space-x-2 px-4">-->
-<!--        <ChevronDoubleLeftIcon class="h-6 w-6"></ChevronDoubleLeftIcon>-->
-<!--        <span class="text-2xl font-extrabold">Dashboard</span>-->
-<!--    </button>-->
-<!--    <nav class="mt-5">-->
-<!--        <slot></slot>-->
-<!--    </nav>-->
+    <div class="w-64 bg-gray-50 border-r border-gray-200">
+        <div class="py-4 px-6">
+            <button class="flex">
+                <ChevronDoubleLeftIcon class="h-6 w-6"></ChevronDoubleLeftIcon>
+                Dashboard
+            </button>
+        </div>
+        <slot></slot>
+    </div>
 </template>
 
 <script>
