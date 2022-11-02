@@ -22,11 +22,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/centrifugo/connect', [\App\Http\Controllers\CentrifugoProxyController::class, 'connect']);
 
-
-    Route::middleware('teacher')->group(function () {
-        Route::get('/courses', [\App\Http\Controllers\CourseController::class, 'index']);
+    Route::prefix('/courses')->group(function () {
+        Route::get('/', [\App\Http\Controllers\CourseController::class, 'index']);
+        Route::post('/', [\App\Http\Controllers\CourseController::class, 'store']);
     });
-
     Route::get('/rooms', [\App\Http\Controllers\ChatController::class, 'index']);
     Route::post('/rooms', [\App\Http\Controllers\ChatController::class, 'store']);
     Route::get('/rooms/{room}', [\App\Http\Controllers\ChatController::class, 'show']);

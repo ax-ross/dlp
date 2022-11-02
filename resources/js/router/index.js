@@ -6,6 +6,7 @@ import teacher from "../middleware/teacher";
 import student from "../middleware/student";
 import middlewarePipeline from "./middlewarePipeline";
 import Index from "../components/Index.vue";
+import * as path from "path";
 
 
 const routes = [
@@ -61,6 +62,15 @@ const routes = [
                 meta: {
                     middleware: [auth, teacher],
                     title: 'Courses'
+                },
+            },
+            {
+                path: '/teacher/courses/create',
+                name: 'teacher.courses.create',
+                component: () => import('../components/Teacher/Course/Create.vue'),
+                meta: {
+                    middleware: [auth, teacher],
+                    title: 'Создание курса'
                 }
             }
         ]
