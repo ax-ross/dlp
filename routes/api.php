@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('/courses')->group(function () {
         Route::get('/', [\App\Http\Controllers\CourseController::class, 'index']);
         Route::post('/', [\App\Http\Controllers\CourseController::class, 'store']);
+        Route::get('/{course}', [\App\Http\Controllers\CourseController::class, 'show']);
     });
     Route::get('/rooms', [\App\Http\Controllers\ChatController::class, 'index']);
     Route::post('/rooms', [\App\Http\Controllers\ChatController::class, 'store']);

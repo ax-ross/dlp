@@ -35,7 +35,6 @@ export default {
     methods: {
       connectChat() {
           const centrifuge = new Centrifuge('ws://127.0.0.1:8000/connection/websocket', {
-              debug: true,
               timeout: 20000
           });
 

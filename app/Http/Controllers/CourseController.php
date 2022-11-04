@@ -21,4 +21,9 @@ class CourseController extends Controller
         $course = Course::create($validated);
         return new CourseResource($course);
     }
+
+    public function show(Course $course)
+    {
+        return new CourseResource($course);
+    }
 }
