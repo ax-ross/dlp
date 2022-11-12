@@ -26,6 +26,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [\App\Http\Controllers\CourseController::class, 'index']);
         Route::post('/', [\App\Http\Controllers\CourseController::class, 'store']);
         Route::get('/{course}', [\App\Http\Controllers\CourseController::class, 'show']);
+        Route::post('/{course}', [\App\Http\Controllers\CourseController::class, 'update']);
+        Route::post('/{course}/add-student', [\App\Http\Controllers\CourseController::class, 'addStudent']);
+        Route::post('/{course}/remove-student', [\App\Http\Controllers\CourseController::class, 'removeStudent']);
     });
     Route::get('/rooms', [\App\Http\Controllers\ChatController::class, 'index']);
     Route::post('/rooms', [\App\Http\Controllers\ChatController::class, 'store']);

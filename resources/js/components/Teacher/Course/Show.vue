@@ -2,7 +2,7 @@
     <div>
         Название курса: {{ course.title }}
     </div>
-    <div>
+    <div v-if="course.teacher">
         Учитель: {{ course.teacher.name }}
     </div>
     <div>
