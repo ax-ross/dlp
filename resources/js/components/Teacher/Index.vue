@@ -3,7 +3,7 @@
         <Sidebar>
             <TeacherSidebarNavigation></TeacherSidebarNavigation>
         </Sidebar>
-        <div class="flex-1">
+        <div class="flex-1 mt-5 ml-5">
             <div v-if="currentRouteName === 'teacher'">
                 Главная
             </div>
