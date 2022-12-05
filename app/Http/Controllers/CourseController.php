@@ -8,6 +8,7 @@ use App\Http\Requests\Course\StoreCourseRequest;
 use App\Http\Requests\Course\UpdateCourseRequest;
 use App\Http\Resources\CourseResource;
 use App\Models\Course;
+use App\Models\User;
 
 class CourseController extends Controller
 {
@@ -39,15 +40,17 @@ class CourseController extends Controller
 
     public function addStudent(AddStudentRequest $request, Course $course)
     {
-        $student_id = $request->validated();
-        $course->student()->attach($student_id);
+        $student_email = $request->validated();
+        $student = User::where('email', $student_email)->first();
+        $course->students()->attach($student->id);
         return new CourseResource($course);
     }
 
     public function removeStudent(RemoveStudentRequest $request, Course $course)
     {
-        $student_id = $request->validated();
-        $course->students()->detach($student_id);
+        $student_email = $request->validated();
+        $student = User::where('email', $student_email)->first();
+        $course->students()->detach($student->id);
         return new CourseResource($course);
     }
 }

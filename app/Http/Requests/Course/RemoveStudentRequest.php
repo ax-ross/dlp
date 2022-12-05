@@ -25,7 +25,7 @@ class RemoveStudentRequest extends FormRequest
     public function rules()
     {
         return [
-            'student_id' => ['required', Rule::exists('users', 'id')->where('role', 'student')]
+            'email' => ['required', Rule::exists('users', 'email')->where('role', 'student')]
         ];
     }
 }

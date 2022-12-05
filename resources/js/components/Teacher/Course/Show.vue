@@ -26,6 +26,33 @@
     </div>
     <div>
         Ученики:
+        <div v-if="studentAdd" class="flex">
+            <div class="mr-2">
+                <div>
+                    <label class="flex" for="studentEmail">Введите email студента:</label>
+                    <input v-model="studentEmail" type="text" class="border rounded-lg p-1 pl-3" id="studentEmail" :placeholder="studentEmail">
+                    <div class="mr-2">
+                        <button @click="addStudent">добавить</button>
+                    </div>
+                    <div class="">
+                        <button @click="addingStudent">отмена</button>
+                    </div>
+                </div>
+
+                <div v-if="validationErrors.email" class="mt-1.5">
+                    <div v-for="error in validationErrors.email">
+                        <div class="text-red-600 text-sm">
+                            {{ error }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div v-else>
+            <button class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl" @click.prevent="addingStudent">Добавить студента</button>
+
+        </div>
         <div v-for="student in course.students">
             <div>
                 {{ student.name }}
@@ -36,6 +63,7 @@
 
 <script>
 import {PencilSquareIcon} from "@heroicons/vue/24/outline"
+import student from "../../../middleware/student";
 
 
 export default {
@@ -48,7 +76,9 @@ export default {
             course: {},
             titleEdit: false,
             newTitle: '',
-            validationErrors: {}
+            validationErrors: {},
+            studentAdd: false,
+            studentEmail: '',
         }
     },
     created() {
@@ -72,6 +102,21 @@ export default {
                     this.validationErrors = response.data.errors;
                 }
             })
+        },
+        addingStudent() {
+            this.studentAdd = !this.studentAdd;
+        },
+        addStudent() {
+            axios.post(`/api/courses/${this.course.id}/add-student`, {email: this.studentEmail}).then(() => {
+                axios.get(`/api/courses/${this.course.id}`).then((data) => {
+                    this.course = data.data.data
+                    this.studentAdd = false;
+                }).catch(({response}) => {
+                    if (response.status === 422) {
+                        this.validationErrors = response.data.errors;
+                    }
+                })
+            });
         }
     }
 }
