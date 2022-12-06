@@ -55,7 +55,15 @@
         </div>
         <div v-for="student in course.students">
             <div>
-                {{ student.name }}
+                <div class="flex">
+                    {{ student.name }}
+                    <div v-if="studentRemoveId === student.id" class="ml-3">
+                        <button @click="removeStudent(student.email)">Подтвердить удаление</button>
+                    </div>
+                    <div v-else class="ml-3">
+                        <button @click="removingStudent(student.id)">Удалить</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -79,6 +87,7 @@ export default {
             validationErrors: {},
             studentAdd: false,
             studentEmail: '',
+            studentRemoveId: null
         }
     },
     created() {
@@ -115,6 +124,17 @@ export default {
                     if (response.status === 422) {
                         this.validationErrors = response.data.errors;
                     }
+                })
+            });
+        },
+        removingStudent(studentRemoveId) {
+            this.studentRemoveId = studentRemoveId
+        },
+        removeStudent(studentEmail) {
+            axios.post(`/api/courses/${this.course.id}/remove-student`, {email: studentEmail}).then(() => {
+                axios.get(`/api/courses/${this.course.id}`).then((data) => {
+                    this.course = data.data.data
+                    this.studentAdd = false;
                 })
             });
         }
