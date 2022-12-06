@@ -24,6 +24,9 @@
     <div v-if="course.teacher">
         Учитель: {{ course.teacher.name }}
     </div>
+    <div v-if="course.chat">
+        Чат: {{ course.chat.title }}
+    </div>
     <div>
         Ученики:
         <div v-if="studentAdd" class="flex">

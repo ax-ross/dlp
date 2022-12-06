@@ -20,7 +20,8 @@ class CourseResource extends JsonResource
             'updated_at' => $this->updated_at,
             'created_at' => $this->created_at,
             'students' => $this->students,
-            'teacher' => $this->teacher
+            'teacher' => $this->teacher,
+            'chat' => $this->chat
         ];
     }
 }

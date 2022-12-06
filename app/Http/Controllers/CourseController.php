@@ -7,6 +7,7 @@ use App\Http\Requests\Course\RemoveStudentRequest;
 use App\Http\Requests\Course\StoreCourseRequest;
 use App\Http\Requests\Course\UpdateCourseRequest;
 use App\Http\Resources\CourseResource;
+use App\Models\Chat;
 use App\Models\Course;
 use App\Models\User;
 
@@ -23,6 +24,11 @@ class CourseController extends Controller
         $validated = $request->validated();
         $validated['teacher_id'] = $request->user()->id;
         $course = Course::create($validated);
+
+        $chat = Chat::create(['title' => $validated['title'], 'course_id' => $course->id]);
+        $chat->users()->attach($request->user()->id);
+
+
         return new CourseResource($course);
     }
 
