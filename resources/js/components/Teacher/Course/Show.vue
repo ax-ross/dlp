@@ -25,7 +25,7 @@
         Учитель: {{ course.teacher.name }}
     </div>
     <div v-if="course.chat">
-        Чат: {{ course.chat.title }}
+        Чат: <router-link :to="{name: 'teacher.courses.chat', params: {'id': course.id}}" >{{ course.chat.title }}</router-link>
     </div>
     <div>
         Ученики:
