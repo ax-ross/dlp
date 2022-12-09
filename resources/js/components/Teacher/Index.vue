@@ -45,18 +45,6 @@ export default {
           }).on('disconnected', function (ctx) {
               console.log(`disconnected: ${ctx.code}, ${ctx.reason}`);
           }).connect();
-          window.centrifuge = centrifuge;
-          // const sub = centrifuge.newSubscription("personal:user#" + this.authStore.user.id);
-          // sub.on('publication', function (ctx) {
-          //     console.log('НОВОЕ СООБЩЕНИЕ')
-          //     console.log(ctx);
-          // }).on('subscribing', function (ctx) {
-          //     console.log(`subscribing: ${ctx.code}, ${ctx.reason}`);
-          // }).on('subscribed', function (ctx) {
-          //     console.log('subscribed', ctx);
-          // }).on('unsubscribed', function (ctx) {
-          //     console.log(`unsubscribed: ${ctx.code}, ${ctx.reason}`);
-          // }).subscribe();
       }
     },
     mounted() {

@@ -119,6 +119,15 @@ const routes = [
                     middleware: [auth, student],
                     title: 'Courses'
                 }
+            },
+            {
+                path: 'student/courses/:id/chat',
+                name: 'student.courses.chat',
+                component: () => import('../components/Teacher/Course/Chat.vue'),
+                meta: {
+                    middleware: [auth, student],
+                    title: 'Чат курса'
+                }
             }
         ]
     },

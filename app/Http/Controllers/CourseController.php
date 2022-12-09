@@ -10,6 +10,7 @@ use App\Http\Resources\CourseResource;
 use App\Models\Chat;
 use App\Models\Course;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 
 class CourseController extends Controller
 {
@@ -49,6 +50,7 @@ class CourseController extends Controller
         $student_email = $request->validated();
         $student = User::where('email', $student_email)->first();
         $course->students()->attach($student->id);
+        $course->chat->users()->attach($student->id);
         return new CourseResource($course);
     }
 
@@ -58,5 +60,13 @@ class CourseController extends Controller
         $student = User::where('email', $student_email)->first();
         $course->students()->detach($student->id);
         return new CourseResource($course);
+    }
+
+    public function getChat(Course $course)
+    {
+        $chat = $course->chat()->with(['users', 'messages.user' => function ($query) {
+            $query->orderBy('created_at', 'asc');
+        }])->get();
+        return $chat;
     }
 }
