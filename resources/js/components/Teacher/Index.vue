@@ -15,7 +15,6 @@
 
 <script>
 import Sidebar from "../Sidebar/Sidebar.vue";
-import {Centrifuge} from "centrifuge";
 import {mapStores} from "pinia";
 import {useAuthStore} from "../../stores/auth";
 import TeacherSidebarNavigation from "../Sidebar/TeacherSidebarNavigation.vue";
@@ -32,24 +31,6 @@ export default {
         },
         ...mapStores(useAuthStore),
     },
-    methods: {
-      connectChat() {
-          const centrifuge = new Centrifuge('ws://127.0.0.1:8000/connection/websocket', {
-              timeout: 20000
-          });
-
-          centrifuge.on('connecting', function (ctx) {
-              console.log(`connecting: ${ctx.code}, ${ctx.reason}`);
-          }).on('connected', function (ctx) {
-              console.log(`connected over ${ctx.transport}`);
-          }).on('disconnected', function (ctx) {
-              console.log(`disconnected: ${ctx.code}, ${ctx.reason}`);
-          }).connect();
-      }
-    },
-    mounted() {
-        this.connectChat()
-    }
 }
 </script>
 

@@ -47,15 +47,6 @@ const routes = [
         },
         children: [
             {
-                path: '/teacher/chats',
-                name: 'teacher.chats',
-                component: () => import('../components/Teacher/Chat/Index.vue'),
-                meta: {
-                    middleware: [auth, teacher],
-                    title: 'Chats'
-                }
-            },
-            {
                 path: '/teacher/courses',
                 name: 'teacher.courses',
                 component: () => import('../components/Teacher/Course/Index.vue'),
@@ -103,15 +94,6 @@ const routes = [
         },
         children: [
             {
-                path: '/student/chats',
-                name: 'student.chats',
-                component: () => import('../components/Student/Chat/Index.vue'),
-                meta: {
-                    middleware: [auth, student],
-                    title: 'Chats'
-                }
-            },
-            {
                 path: '/student/courses',
                 name: 'student.courses',
                 component: () => import('../components/Student/Course/Index.vue'),
@@ -119,11 +101,19 @@ const routes = [
                     middleware: [auth, student],
                     title: 'Courses'
                 }
+            }, {
+                path: '/student/courses/:id',
+                name: 'student.courses.show',
+                component: () => import('../components/Student/Course/Show.vue'),
+                meta: {
+                    middleware: [auth, student],
+                    title: 'Просмотр курса'
+                }
             },
             {
                 path: 'student/courses/:id/chat',
                 name: 'student.courses.chat',
-                component: () => import('../components/Teacher/Course/Chat.vue'),
+                component: () => import('../components/Student/Course/Chat.vue'),
                 meta: {
                     middleware: [auth, student],
                     title: 'Чат курса'

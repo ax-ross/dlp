@@ -17,15 +17,15 @@ import {mapStores} from "pinia";
 import {useSidebarStore} from "../../stores/sidebar";
 
 export default {
-    name: "TeacherSidebarNavigation",
+    name: "StudentSidebarNavigation",
     computed: {
         ...mapStores(useSidebarStore)
     },
     data() {
         return {
             navigation: [
-                {name: 'Главная', route: 'teacher', icon: HomeIcon},
-                {name: 'Курсы', route: 'teacher.courses', icon: AcademicCapIcon},
+                {name: 'Главная', route: 'student', icon: HomeIcon},
+                {name: 'Курсы', route: 'student.courses', icon: AcademicCapIcon},
             ],
         }
     },

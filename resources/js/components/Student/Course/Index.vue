@@ -1,8 +1,7 @@
-    <template>
-    <sidebar></sidebar>
+<template>
     <p class="text-2xl">Мои курсы</p>
     <div class="container flex flex-wrap">
-        <div v-for="course in courses" class="hover:shadow-xl p-5 m-2 min-w-[25%] border rounded-2xl cursor-pointer">
+        <router-link v-for="course in courses" :to="{name: 'student.courses.show', params: {'id': course.id}}" class="hover:shadow-xl p-5 m-2 min-w-[25%] border rounded-2xl cursor-pointer">
             <div>{{ course.title }}</div>
             <div class="mt-5 text-sm flex justify-between">
                 <div>
@@ -14,19 +13,15 @@
                 </div>
             </div>
 
-        </div>
+        </router-link>
     </div>
 
 </template>
 
 <script>
-import Sidebar from "../../Sidebar/Sidebar.vue";
 
 export default {
     name: "Index",
-    components: {
-      Sidebar
-    },
     data() {
         return {
             courses: null
@@ -39,7 +34,6 @@ export default {
         getCourses() {
             axios.get('/api/courses').then((data) => {
                 this.courses = data.data.data;
-                console.log(this.courses);
             });
         }
     }
