@@ -4,6 +4,7 @@
     </div>
     <div v-if="course.teacher">
         Учитель: {{ course.teacher.name }}
+        <div class="shadow-xl">Тест</div>
     </div>
     <div v-if="course.chat">
         Чат: <router-link :to="{name: 'student.courses.chat', params: {'id': course.id}}" >{{ course.chat.title }}</router-link>

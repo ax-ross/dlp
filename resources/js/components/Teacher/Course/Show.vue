@@ -1,5 +1,5 @@
 <template>
-    <div v-if="titleEdit" class="flex">
+    <div v-if="titleEdit" class="flex mb-3 justify-center">
         <div class="mr-2">
             <input v-model="newTitle" type="text" class="border rounded-lg p-1 pl-3" id="title" :placeholder="course.title">
             <div v-if="validationErrors.title" class="mt-1.5">
@@ -11,51 +11,54 @@
             </div>
         </div>
         <div class="mr-2">
-            <button @click="updateTitle">сохранить</button>
+            <button @click="updateTitle" class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">сохранить</button>
         </div>
         <div class="my-auto">
             <button @click="editTitle"><pencil-square-icon class="w-5 h-5"></pencil-square-icon></button>
         </div>
 
     </div>
-    <div v-else>
-        Название курса: {{ course.title }} <button @click="editTitle"><pencil-square-icon class="w-3"></pencil-square-icon></button>
+    <div v-else class="mb-3">
+       <div class="text-center text-2xl">{{ course.title }} <button @click="editTitle"><pencil-square-icon class="w-4"></pencil-square-icon></button></div>
     </div>
-    <div v-if="course.teacher">
-        Учитель: {{ course.teacher.name }}
+    <div v-if="course.chat" class="mb-5">
+        <router-link class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl" :to="{name: 'teacher.courses.chat', params: {'id': course.id}}" >Открыть чат курса</router-link>
     </div>
-    <div v-if="course.chat">
-        Чат: <router-link :to="{name: 'teacher.courses.chat', params: {'id': course.id}}" >{{ course.chat.title }}</router-link>
-    </div>
-    <div>
-        Ученики:
-        <div v-if="studentAdd" class="flex">
-            <div class="mr-2">
-                <div>
-                    <label class="flex" for="studentEmail">Введите email студента:</label>
-                    <input v-model="studentEmail" type="text" class="border rounded-lg p-1 pl-3" id="studentEmail" :placeholder="studentEmail">
-                    <div class="mr-2">
-                        <button @click="addStudent">добавить</button>
-                    </div>
-                    <div class="">
-                        <button @click="addingStudent">отмена</button>
-                    </div>
-                </div>
 
-                <div v-if="validationErrors.email" class="mt-1.5">
-                    <div v-for="error in validationErrors.email">
-                        <div class="text-red-600 text-sm">
-                            {{ error }}
-                        </div>
-                    </div>
+    <div v-if="studentAdd" class="flex mb-5">
+        <div class="mr-2">
+            <div>
+                <label class="flex" for="studentEmail">Введите email студента:</label>
+                <input v-model="studentEmail" type="text" class="border rounded-lg p-1 pl-3" id="studentEmail" :placeholder="studentEmail">
+                <div class="mr-2">
+                    <button @click="addStudent">добавить</button>
+                </div>
+                <div class="">
+                    <button @click="addingStudent">отмена</button>
                 </div>
             </div>
 
+            <div v-if="validationErrors.email" class="mt-1.5">
+                <div v-for="error in validationErrors.email">
+                    <div class="text-red-600 text-sm">
+                        {{ error }}
+                    </div>
+                </div>
+            </div>
         </div>
-        <div v-else>
-            <button class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl" @click.prevent="addingStudent">Добавить студента</button>
 
-        </div>
+    </div>
+    <div v-else class="mb-5">
+        <button class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl" @click.prevent="addingStudent">Добавить ученика</button>
+
+    </div>
+
+    <div v-if="course.teacher" class=" flex">
+        <div class="p-3">Учитель:</div>
+        <div class="border rounded-2xl cursor-pointer hover:shadow-xl p-3"> {{ course.teacher.name }}</div>
+    </div>
+    <div>
+        Ученики:
         <div v-for="student in course.students">
             <div>
                 <div class="flex">
