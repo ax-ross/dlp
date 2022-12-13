@@ -27,14 +27,14 @@
 
     <div v-if="studentAdd" class="flex mb-5">
         <div class="mr-2">
-            <div>
-                <label class="flex" for="studentEmail">Введите email студента:</label>
-                <input v-model="studentEmail" type="text" class="border rounded-lg p-1 pl-3" id="studentEmail" :placeholder="studentEmail">
-                <div class="mr-2">
-                    <button @click="addStudent">добавить</button>
+            <div class="md:flex">
+                <label class="flex items-center" for="studentEmail">Введите email студента:</label>
+                <input v-model="studentEmail" type="text" class="mb-2 ml-2 border rounded-lg p-1 pl-3" id="studentEmail" :placeholder="studentEmail">
+                <div>
+                    <button @click="addStudent" class="mb-2 ml-2 bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">добавить</button>
                 </div>
-                <div class="">
-                    <button @click="addingStudent">отмена</button>
+                <div>
+                    <button class="mb-2 ml-2 bg-red-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl" @click="addingStudent">отмена</button>
                 </div>
             </div>
 
@@ -57,18 +57,24 @@
         <div class="p-3">Учитель:</div>
         <div class="border rounded-2xl cursor-pointer hover:shadow-xl p-3"> {{ course.teacher.name }}</div>
     </div>
-    <div>
-        Ученики:
+    <div class="p-3">
+        <div class="mb-3">
+            Ученики:
+        </div>
         <div v-for="student in course.students">
             <div>
                 <div class="flex">
-                    {{ student.name }}
-                    <div v-if="studentRemoveId === student.id" class="ml-3">
-                        <button @click="removeStudent(student.email)">Подтвердить удаление</button>
+                    <div class="border rounded-2xl cursor-pointer hover:shadow-xl p-5 flex">
+                        {{ student.name }}
+                        <div v-if="studentRemoveId === student.id" class="ml-10">
+                            <button @click="removeStudent(student.email)" class="bg-red-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">Подтвердить удаление</button>
+                            <button @click="cancelRemoveStudent()" class="ml-2 bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">Отмена</button>
+                        </div>
+                        <div v-else class="ml-10">
+                            <button @click="removingStudent(student.id)" class="bg-red-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">Удалить</button>
+                        </div>
                     </div>
-                    <div v-else class="ml-3">
-                        <button @click="removingStudent(student.id)">Удалить</button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -143,6 +149,9 @@ export default {
                     this.studentAdd = false;
                 })
             });
+        },
+        cancelRemoveStudent() {
+            this.studentRemoveId = null
         }
     }
 }
