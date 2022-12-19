@@ -132,11 +132,11 @@ export default {
                 axios.get(`/api/courses/${this.course.id}`).then((data) => {
                     this.course = data.data.data
                     this.studentAdd = false;
-                }).catch(({response}) => {
-                    if (response.status === 422) {
-                        this.validationErrors = response.data.errors;
-                    }
                 })
+                }).catch(({response}) => {
+                if (response.status === 422) {
+                    this.validationErrors = response.data.errors;
+                }
             });
         },
         removingStudent(studentRemoveId) {
