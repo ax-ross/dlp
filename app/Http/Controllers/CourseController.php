@@ -11,6 +11,7 @@ use App\Models\Chat;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
 
 class CourseController extends Controller
 {
@@ -49,8 +50,11 @@ class CourseController extends Controller
     {
         $student_email = $request->validated();
         $student = User::where('email', $student_email)->first();
-        $course->students()->attach($student->id);
-        $course->chat->users()->attach($student->id);
+        if ($course->students->contains($student->id)) {
+            throw ValidationException::withMessages(['email' => 'пользователь с данным email уже добавлен ']);
+        }
+        $course->students()->syncWithoutDetaching($student->id);
+        $course->chat->users()->syncWithoutDetaching($student->id);
         return new CourseResource($course);
     }
 
