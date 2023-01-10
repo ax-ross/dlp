@@ -63,6 +63,7 @@ class CourseController extends Controller
         $student_email = $request->validated();
         $student = User::where('email', $student_email)->first();
         $course->students()->detach($student->id);
+        $course->chat->users()->detach($student->id);
         return new CourseResource($course);
     }
 
