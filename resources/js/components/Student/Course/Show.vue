@@ -1,19 +1,26 @@
 <template>
-    <div>
-        Название курса: {{ course.title }}
+    <div class="mb-3">
+        <div class="text-center text-2xl">{{ course.title }}</div>
     </div>
-    <div v-if="course.teacher">
-        Учитель: {{ course.teacher.name }}
-        <div class="shadow-xl">Тест</div>
+        <div v-if="course.chat" class="mb-5">
+            <router-link class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl" :to="{name: 'student.courses.chat', params: {'id': course.id}}" >Открыть чат курса</router-link>
+        </div>
+    <div v-if="course.teacher" class=" flex">
+        <div class="p-3">Учитель:</div>
+        <div class="border rounded-2xl cursor-pointer hover:shadow-xl p-3"> {{ course.teacher.name }}</div>
     </div>
-    <div v-if="course.chat">
-        Чат: <router-link :to="{name: 'student.courses.chat', params: {'id': course.id}}" >{{ course.chat.title }}</router-link>
-    </div>
-    <div>
-        Ученики:
+    <div class="p-3">
+        <div class="mb-3">
+            Ученики:
+        </div>
         <div v-for="student in course.students">
-            <div class="flex">
-                {{ student.name }}
+            <div>
+                <div class="flex">
+                    <div class="border rounded-2xl cursor-pointer hover:shadow-xl p-5 flex">
+                        {{ student.name }}
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

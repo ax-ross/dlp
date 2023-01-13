@@ -37,7 +37,6 @@ export default {
         getCourses() {
             axios.get('/api/courses').then((data) => {
                 this.courses = data.data.data;
-                console.log(this.courses);
             });
         }
     }
