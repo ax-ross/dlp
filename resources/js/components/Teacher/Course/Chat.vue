@@ -65,6 +65,7 @@ export default {
         sendMessage() {
             axios.post(`/api/rooms/${this.chat.id}/publish`, {message: this.messageToSend}).then(() => {
                 this.updateChat()
+                this.messageToSend = '';
             })
         }
     }
