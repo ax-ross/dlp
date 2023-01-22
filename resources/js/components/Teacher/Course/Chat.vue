@@ -19,6 +19,35 @@
             <button class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl" type="submit" @click.prevent="sendMessage">Отправить</button>
         </div>
     </div>
+    <div class="container bg-slate-200 p-8 m-8 border rounded-2xl">
+        <div class="text-3xl text-center">
+            {{ chat.title }}
+        </div>
+        <div v-if="chat.users" class="text-xl flex">
+            Участников: {{ chat.users.length }}
+        </div>
+        <div class="bg-white border rounded-2xl p-8">
+            <div v-for="message in chat.messages">
+                <div v-if="authStore.user.id === message.user.id" class="text-end">
+                    <div>
+                        Отправитель: {{ message.user.name }}
+                    </div>
+                    <div>
+                        Сообщение: {{ message.message }}
+                    </div>
+                </div>
+                <div v-else>
+                    <div>
+                        Отправитель: {{ message.user.name }}
+                    </div>
+                    <div>
+                        Сообщение: {{ message.message }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -37,7 +66,9 @@ export default {
         }
     },
     created() {
-        this.updateChat()
+        axios.get(`/api/courses/${this.$route.params.id}/chat`).then((data) => {
+            this.chat = data.data.data
+        })
         this.subscribeChat()
     },
     computed: {
@@ -52,19 +83,13 @@ export default {
             centrifuge.connect();
 
             this.sub =  centrifuge.newSubscription(`personal:user#${this.authStore.user.id}`);
-            this.sub.on('publication', () => {
-                this.updateChat();
+            this.sub.on('publication', (publication) => {
+                this.chat.messages.push(publication.data)
             })
             this.sub.subscribe();
         },
-        updateChat() {
-            axios.get(`/api/courses/${this.$route.params.id}/chat`).then((data) => {
-                this.chat = data.data[0]
-            })
-        },
         sendMessage() {
-            axios.post(`/api/rooms/${this.chat.id}/publish`, {message: this.messageToSend}).then(() => {
-                this.updateChat()
+            axios.post(`/api/chats/${this.chat.id}/publish`, {message: this.messageToSend}).then(() => {
                 this.messageToSend = '';
             })
         }
