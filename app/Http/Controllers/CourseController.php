@@ -6,11 +6,11 @@ use App\Http\Requests\Course\AddStudentRequest;
 use App\Http\Requests\Course\RemoveStudentRequest;
 use App\Http\Requests\Course\StoreCourseRequest;
 use App\Http\Requests\Course\UpdateCourseRequest;
+use App\Http\Resources\ChatResource;
 use App\Http\Resources\CourseResource;
 use App\Models\Chat;
 use App\Models\Course;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
 class CourseController extends Controller
@@ -71,7 +71,8 @@ class CourseController extends Controller
     {
         $chat = $course->chat()->with(['users', 'messages.user' => function ($query) {
             $query->orderBy('created_at', 'asc');
-        }])->get();
-        return $chat;
+        }])->first();
+
+        return new ChatResource($chat);
     }
 }
