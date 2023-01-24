@@ -9,22 +9,30 @@
         <div v-if="chat.users" class="text-xl flex">
             Участников: {{ chat.users.length }}
         </div>
-        <div class="bg-white border rounded-2xl p-8 overflow-y-auto h-[36rem]" ref="chat">
+        <div class="bg-white border rounded-2xl p-8 overflow-y-auto h-[36rem] " ref="chat">
             <div v-for="message in chat.messages">
-                <div v-if="authStore.user.id === message.user.id" class="text-end">
-                    <div>
-                        Отправитель: {{ message.user.name }}
-                    </div>
-                    <div>
-                        Сообщение: {{ message.message }}
+                <div v-if="authStore.user.id === message.user.id" class="flex">
+                    <div class="bg-green-300 bg-opacity-25 ml-auto w-80 break-words p-3 m-3 border rounded-2xl">
+                        <div class="flex font-bold content-center mb-2">
+                            <img src="https://via.placeholder.com/800x800" alt="" style="width: 50px; height: 50px;" class="border rounded-full float-left mr-5">
+                            <div class="flex items-center">
+                                {{ message.user.name }}
+                            </div>
+                        </div>
+                        <div>
+                            {{ message.message }}
+                        </div>
+
                     </div>
                 </div>
-                <div v-else>
-                    <div>
-                        Отправитель: {{ message.user.name }}
-                    </div>
-                    <div>
-                        Сообщение: {{ message.message }}
+                <div v-else class="flex">
+                    <div class="bg-sky-200 bg-opacity-25 w-80 break-words p-3 m-3 border rounded-2xl">
+                        <div>
+                            Отправитель: {{ message.user.name }}
+                        </div>
+                        <div>
+                            Сообщение: {{ message.message }}
+                        </div>
                     </div>
                 </div>
 
