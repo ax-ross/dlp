@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->enum('role', ['teacher', 'student']);
             $table->string('password');
+            $table->string('avatar')->default(asset('images/default-avatar.svg'));
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

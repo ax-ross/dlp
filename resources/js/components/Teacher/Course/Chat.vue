@@ -14,7 +14,7 @@
                 <div v-if="authStore.user.id === message.user.id" class="flex">
                     <div class="bg-green-300 bg-opacity-25 ml-auto w-80 break-words p-3 m-3 border rounded-2xl">
                         <div class="flex font-bold content-center mb-2">
-                            <img src="https://via.placeholder.com/800x800" alt="" style="width: 50px; height: 50px;" class="border rounded-full float-left mr-5">
+                            <img :src="message.user.avatar" alt="" style="width: 50px; height: 50px;" class="border rounded-full float-left mr-5">
                             <div class="flex items-center">
                                 {{ message.user.name }}
                             </div>
