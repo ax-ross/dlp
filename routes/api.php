@@ -29,9 +29,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{course}', [\App\Http\Controllers\CourseController::class, 'update']);
         Route::post('/{course}/add-student', [\App\Http\Controllers\CourseController::class, 'addStudent']);
         Route::post('/{course}/remove-student', [\App\Http\Controllers\CourseController::class, 'removeStudent']);
-        Route::get('/{course}/chat', [\App\Http\Controllers\CourseController::class, 'getChat']);
     });
 
 
+    Route::get('/chats/{chat}', [\App\Http\Controllers\ChatController::class, 'show']);
     Route::post('/chats/{chat}/publish', [\App\Http\Controllers\ChatController::class, 'publish']);
+    Route::get('/chats/{chat}/messages', [\App\Http\Controllers\ChatController::class, 'messages']);
 });

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ChatResource;
 use App\Http\Resources\MessageResource;
 use App\Models\Message;
 use App\Models\Chat;
 use denis660\Centrifugo\Centrifugo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
@@ -34,5 +34,16 @@ class ChatController extends Controller
         $this->centrifugo->broadcast($channels, $messageResource->toArray($request));
 
         return response()->noContent();
+    }
+
+    public function show(Chat $chat)
+    {
+        return new ChatResource($chat);
+    }
+
+    public function messages(Chat $chat)
+    {
+        $messages = $chat->messages()->with('user')->get();
+        return MessageResource::collection($messages);
     }
 }

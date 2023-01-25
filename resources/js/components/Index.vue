@@ -1,26 +1,32 @@
 <template>
-    <div class="container mx-auto flex items-center flex-col min-h-screen justify-center">
-        <p class="font-bold text-3xl">Добро пожаловать на Платформу дистанционного обучения</p>
-
-        <div class="flex mt-10">
-            <router-link :to="{ name: 'login' }" class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-4 px-8 rounded-2xl mr-10 text-xl">
-                Вход
-            </router-link>
-            <router-link :to="{ name: 'register' }" class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-4 px-8 rounded-2xl text-xl">
-                Регистрация
-            </router-link>
+    <div class="flex min-h-screen">
+        <Sidebar>
+        </Sidebar>
+        <div class="flex-1 mt-5 ml-5">
+            <div v-if="$route.name === 'index'">
+                Main page content
+            </div>
+            <router-view></router-view>
         </div>
-
     </div>
+
+
 </template>
 
 <script>
-import { mapState } from 'pinia';
-import { useAuthStore } from "../stores/auth";
-import router from '../router';
+import Sidebar from "./Sidebar/Sidebar.vue";
+import {useAuthStore} from "../stores/auth";
+import {mapStores} from "pinia";
 
 export default {
     name: "Index",
+    components: {
+        Sidebar
+    },
+    computed: {
+        ...mapStores(useAuthStore)
+    }
+
 }
 </script>
 

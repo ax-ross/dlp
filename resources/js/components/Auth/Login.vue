@@ -60,13 +60,9 @@ export default {
                 axios.post('/login', {email: this.email, password: this.password}).then(async ({data}) => {
                     await this.authStore.addAuthUserToStore();
                     if (this.authStore.authenticated) {
-                        if (this.authStore.user.role === 'teacher') {
-                            await router.push({name: 'teacher'});
-                        } else {
-                            await router.push({name: 'student'});
-                        }
-                    } else {
                         await router.push({name: 'index'})
+                    } else {
+                        await router.push({name: 'welcome'})
                     }
                 }).catch(({response}) => {
                     if (response.status === 422) {

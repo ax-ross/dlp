@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import router from "../../../router";
+import router from "../../router";
 
 export default {
     name: "Create",
@@ -34,7 +34,7 @@ export default {
     methods: {
         store() {
             axios.post('/api/courses', {'title': this.title}).then(() => {
-                router.push({name: 'teacher.courses'});
+                router.push({name: 'courses'});
             }).catch(({response}) => {
                 if (response.status === 422) {
                     this.validationErrors = response.data.errors;

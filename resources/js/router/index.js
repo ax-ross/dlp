@@ -5,18 +5,21 @@ import auth from "../middleware/auth";
 import teacher from "../middleware/teacher";
 import student from "../middleware/student";
 import middlewarePipeline from "./middlewarePipeline";
+import Welcome from "../components/Welcome.vue";
 import Index from "../components/Index.vue";
-import * as path from "path";
-
+import CourseIndex from "../components/Course/Index.vue";
+import CourseShow from "../components/Course/Show.vue";
+import CourseCreate from "../components/Course/Create.vue"
+import Chat from "../components/Chat/Chat.vue";
 
 const routes = [
     {
-        path: '/',
-        name: 'index',
-        component: Index,
+        path: '/welcome',
+        name: 'welcome',
+        component: Welcome,
         meta: {
             middleware: [guest],
-            title: 'Index'
+            title: 'Welcome'
         }
     },
     {
@@ -38,89 +41,151 @@ const routes = [
         }
     },
     {
-        path: '/teacher',
-        name: 'teacher',
-        component: () => import('../components/Teacher/Index.vue'),
+        path: '/',
+        name: 'index',
+        component: Index,
         meta: {
-            middleware: [auth, teacher],
-            title: 'Teacher'
+            middleware: [auth],
+            title: 'Main'
         },
         children: [
             {
-                path: '/teacher/courses',
-                name: 'teacher.courses',
-                component: () => import('../components/Teacher/Course/Index.vue'),
+                path: '/courses',
+                name: 'courses',
+                component: CourseIndex,
                 meta: {
-                    middleware: [auth, teacher],
+                    middleware: [auth],
                     title: 'Courses'
                 },
             },
             {
-                path: '/teacher/courses/create',
-                name: 'teacher.courses.create',
-                component: () => import('../components/Teacher/Course/Create.vue'),
+                path: '/courses/:id',
+                name: 'courses.show',
+                component: CourseShow,
                 meta: {
-                    middleware: [auth, teacher],
-                    title: 'Создание курса'
+                    middleware: [auth],
+                    title: 'Show course'
                 }
             },
             {
-                path: '/teacher/courses/:id',
-                name: 'teacher.courses.show',
-                component: () => import('../components/Teacher/Course/Show.vue'),
+                path: '/courses/create',
+                name: 'courses.create',
+                component: CourseCreate,
                 meta: {
                     middleware: [auth, teacher],
-                    title: 'Просмотр курса'
+                    title: 'Creating course'
                 }
             },
             {
-                path: 'teacher/courses/:id/chat',
-                name: 'teacher.courses.chat',
-                component: () => import('../components/Teacher/Course/Chat.vue'),
+                path: '/chat/:id',
+                name: 'chat',
+                component: Chat,
                 meta: {
-                    middleware: [auth, teacher],
-                    title: 'Чат курса'
+                    middleware: [auth],
+                    title: 'Chat'
                 }
             }
         ]
     },
-    {
-        path: '/student',
-        name: 'student',
-        component: () => import('../components/Student/Index.vue'),
-        meta: {
-            middleware: [auth, student],
-            title: 'Student'
-        },
-        children: [
-            {
-                path: '/student/courses',
-                name: 'student.courses',
-                component: () => import('../components/Student/Course/Index.vue'),
-                meta: {
-                    middleware: [auth, student],
-                    title: 'Courses'
-                }
-            }, {
-                path: '/student/courses/:id',
-                name: 'student.courses.show',
-                component: () => import('../components/Student/Course/Show.vue'),
-                meta: {
-                    middleware: [auth, student],
-                    title: 'Просмотр курса'
-                }
-            },
-            {
-                path: 'student/courses/:id/chat',
-                name: 'student.courses.chat',
-                component: () => import('../components/Student/Course/Chat.vue'),
-                meta: {
-                    middleware: [auth, student],
-                    title: 'Чат курса'
-                }
-            }
-        ]
-    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // {
+        //     path: '/teacher',
+        //     name: 'teacher',
+        //     component: () => import('../components/Teacher/Index.vue'),
+        //     meta: {
+        //         middleware: [auth, teacher],
+        //         title: 'Teacher'
+        //     },
+        //     children: [
+        //         {
+        //             path: '/teacher/courses',
+        //             name: 'teacher.courses',
+        //             component: () => import('../components/Teacher/Course/Index.vue'),
+        //             meta: {
+        //                 middleware: [auth, teacher],
+        //                 title: 'Courses'
+        //             },
+        //         },
+        //         {
+        //             path: '/teacher/courses/create',
+        //             name: 'teacher.courses.create',
+        //             component: () => import('../components/Teacher/Course/Create.vue'),
+        //             meta: {
+        //                 middleware: [auth, teacher],
+        //                 title: 'Создание курса'
+        //             }
+        //         },
+        //         {
+        //             path: '/teacher/courses/:id',
+        //             name: 'teacher.courses.show',
+        //             component: () => import('../components/Teacher/Course/Show.vue'),
+        //             meta: {
+        //                 middleware: [auth, teacher],
+        //                 title: 'Просмотр курса'
+        //             }
+        //         },
+        //         {
+        //             path: 'teacher/courses/:id/chat',
+        //             name: 'teacher.courses.chat',
+        //             component: () => import('../components/Teacher/Course/Chat.vue'),
+        //             meta: {
+        //                 middleware: [auth, teacher],
+        //                 title: 'Чат курса'
+        //             }
+        //         }
+        //     ]
+        // },
+        // {
+        //     path: '/student',
+        //     name: 'student',
+        //     component: () => import('../components/Student/Index.vue'),
+        //     meta: {
+        //         middleware: [auth, student],
+        //         title: 'Student'
+        //     },
+        //     children: [
+        //         {
+        //             path: '/student/courses',
+        //             name: 'student.courses',
+        //             component: () => import('../components/Student/Course/Index.vue'),
+        //             meta: {
+        //                 middleware: [auth, student],
+        //                 title: 'Courses'
+        //             }
+        //         }, {
+        //             path: '/student/courses/:id',
+        //             name: 'student.courses.show',
+        //             component: () => import('../components/Student/Course/Show.vue'),
+        //             meta: {
+        //                 middleware: [auth, student],
+        //                 title: 'Просмотр курса'
+        //             }
+        //         },
+        //         {
+        //             path: 'student/courses/:id/chat',
+        //             name: 'student.courses.chat',
+        //             component: () => import('../components/Student/Course/Chat.vue'),
+        //             meta: {
+        //                 middleware: [auth, student],
+        //                 title: 'Чат курса'
+        //             }
+        //         }
+        //     ]
+        // },
 ];
 
 const router = createRouter({

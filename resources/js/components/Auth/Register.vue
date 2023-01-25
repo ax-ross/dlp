@@ -88,13 +88,9 @@ export default {
                 axios.post('/register', {name: this.name, email: this.email, password: this.password, password_confirmation: this.password_confirmation, role: this.role}).then(async ({data}) => {
                     await this.authStore.addAuthUserToStore();
                     if (this.authStore.authenticated) {
-                        if (this.authStore.user.role === 'teacher') {
-                            await router.push({name: 'teacher'});
-                        } else {
-                            await router.push({name: 'student'});
-                        }
-                    } else {
                         await router.push({name: 'index'});
+                    } else {
+                        await router.push({name: 'welcome'});
                     }
                 }).catch(({response}) => {
                     if (response.status === 422) {

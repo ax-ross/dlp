@@ -67,12 +67,4 @@ class CourseController extends Controller
         return new CourseResource($course);
     }
 
-    public function getChat(Course $course)
-    {
-        $chat = $course->chat()->with(['users', 'messages.user' => function ($query) {
-            $query->orderBy('created_at', 'asc');
-        }])->first();
-
-        return new ChatResource($chat);
-    }
 }

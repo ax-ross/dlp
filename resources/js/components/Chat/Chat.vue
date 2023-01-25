@@ -6,11 +6,11 @@
         <div class="text-3xl text-center">
             {{ chat.title }}
         </div>
-        <div v-if="chat.users" class="text-xl flex">
-            Участников: {{ chat.users.length }}
+        <div v-if="chat.users_count" class="text-xl flex">
+            Участников: {{ chat.users_count }}
         </div>
-        <div class="bg-white border rounded-2xl p-8 overflow-y-auto h-[36rem] " ref="chat">
-            <div v-for="message in chat.messages">
+        <div class="bg-white border rounded-2xl p-8 overflow-y-auto h-[36rem] " ref="chat" @scroll="loadPreviousMessages">
+            <div v-for="message in messages">
                 <div v-if="authStore.user.id === message.user.id" class="flex">
                     <div class="bg-green-300 bg-opacity-25 ml-auto w-80 break-words p-3 m-3 border rounded-2xl">
                         <div class="flex font-bold content-center mb-2">
@@ -51,7 +51,7 @@
 
 <script>
 
-import {useAuthStore} from "../../../stores/auth";
+import {useAuthStore} from "../../stores/auth";
 import {mapStores} from "pinia";
 import {Centrifuge} from "centrifuge";
 
@@ -61,12 +61,18 @@ export default {
         return {
             sub: null,
             chat: {},
-            messageToSend: ''
+            messages: [],
+            messageToSend: '',
+            page: null
         }
     },
     created() {
-        axios.get(`/api/courses/${this.$route.params.id}/chat`).then((data) => {
+        axios.get(`/api/chats/${this.$route.params.id}`).then((data) => {
             this.chat = data.data.data
+        })
+        axios.get(`/api/chats/${this.$route.params.id}/messages`).then((data) => {
+            console.log(data)
+            this.messages = data.data.data
         })
         this.subscribeChat()
     },
@@ -82,8 +88,8 @@ export default {
             centrifuge.connect();
 
             this.sub = centrifuge.newSubscription(`personal:user#${this.authStore.user.id}`);
-            this.sub.on('publication', (publication) => {
-                this.chat.messages.push(publication.data)
+            this.sub.on('publication', (message) => {
+                this.messages.push(message.data)
             })
             this.sub.subscribe();
         },
@@ -91,10 +97,10 @@ export default {
             axios.post(`/api/chats/${this.chat.id}/publish`, {message: this.messageToSend}).then(() => {
                 this.messageToSend = '';
             })
-        },
+        }
     },
     watch: {
-        'chat.messages': {
+        'messages': {
             handler() {
                 const chatEl = this.$refs.chat;
                 if (chatEl) {
