@@ -27,12 +27,16 @@
                 </div>
                 <div v-else class="flex">
                     <div class="bg-sky-200 bg-opacity-25 w-80 break-words p-3 m-3 border rounded-2xl">
-                        <div>
-                            Отправитель: {{ message.user.name }}
+                        <div class="flex font-bold content-center mb-2">
+                            <img :src="message.user.avatar" alt="" style="width: 50px; height: 50px;" class="border rounded-full float-left mr-5">
+                            <div class="flex items-center">
+                                {{ message.user.name }}
+                            </div>
                         </div>
                         <div>
-                            Сообщение: {{ message.message }}
+                            {{ message.message }}
                         </div>
+
                     </div>
                 </div>
 
