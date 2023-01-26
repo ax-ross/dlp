@@ -43,7 +43,8 @@ class ChatController extends Controller
 
     public function messages(Chat $chat)
     {
-        $messages = $chat->messages()->with('user')->get();
+        $messages = $chat->messages()->latest()->with('user')->paginate();
+        $messages->setCollection($messages->getCollection()->reverse());
         return MessageResource::collection($messages);
     }
 }
