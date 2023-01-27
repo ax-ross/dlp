@@ -16,6 +16,7 @@
                 <div class="flex flex-col mb-10">
                     <label for="password" class="mb-2 pl-3">Пароль</label>
                     <input v-model="password" type="password" class="border rounded-lg p-1.5 pl-3" id="password">
+                    <router-link :to="{ name: 'reset-password' }" class="text-blue-400">Забыли пароль?</router-link>
                 </div>
                 <div v-if="validationErrors.login" class="mt-1.5 mb-4 text-center">
                     <div class="text-red-600 text-sm">

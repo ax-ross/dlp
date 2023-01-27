@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        '/api/centrifugo/connect'
+        '/api/centrifugo/connect',
+        '/forgot-password'
     ];
 }

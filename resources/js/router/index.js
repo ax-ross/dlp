@@ -41,6 +41,15 @@ const routes = [
         }
     },
     {
+        path: '/reset-password',
+        name: 'reset-password',
+        component: () => import('../components/Auth/ResetPassword.vue'),
+        meta: {
+            middleware: [guest],
+            title: 'Reset password'
+        }
+    },
+    {
         path: '/',
         name: 'index',
         component: Index,
