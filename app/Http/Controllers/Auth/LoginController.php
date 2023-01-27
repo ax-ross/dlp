@@ -19,4 +19,11 @@ class LoginController extends Controller
             return response()->json(['errors' => ['login' => 'Неверный email или пароль']], 422);
         }
     }
+
+    public function logout(Request $request)
+    {
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return response()->noContent();
+    }
 }
