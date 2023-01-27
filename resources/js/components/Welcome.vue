@@ -3,10 +3,10 @@
         <p class="font-bold text-3xl">Добро пожаловать на Платформу дистанционного обучения</p>
 
         <div class="flex mt-10">
-            <router-link :to="{ name: 'login' }" class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-4 px-8 rounded-2xl mr-10 text-xl">
+            <router-link :to="{ name: 'login' }" class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-2xl mr-10 text-xl">
                 Вход
             </router-link>
-            <router-link :to="{ name: 'register' }" class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-4 px-8 rounded-2xl text-xl">
+            <router-link :to="{ name: 'register' }" class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-2xl text-xl">
                 Регистрация
             </router-link>
         </div>

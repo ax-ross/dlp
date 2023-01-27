@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="text-center mb-10">
-                <button @click.prevent="resetPassword" class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">Восстановить пароль</button>
+                <button @click.prevent="resetPassword" class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-2xl">Восстановить пароль</button>
             </div>
             <div class="flex flex-col text-sm text-center">
                 <span class="mb-2">Нету аккаунта?</span>

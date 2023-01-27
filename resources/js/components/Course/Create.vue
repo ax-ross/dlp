@@ -14,7 +14,7 @@
         </div>
 
         <div>
-            <button @click.prevent="store" class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">Создать курс</button>
+            <button @click.prevent="store" class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-2xl">Создать курс</button>
         </div>
     </div>
 

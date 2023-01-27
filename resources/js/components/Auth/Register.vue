@@ -48,7 +48,7 @@
                     <label for="role-student" class="pl-1.5">Я ученик</label>
                 </div>
                 <div class="text-center mb-10">
-                    <button @click.prevent="register" class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">Зарегестрироваться</button>
+                    <button @click.prevent="register" class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-2xl">Зарегестрироваться</button>
                 </div>
                 <div class="flex flex-col text-sm text-center">
                     <span class="mb-2">Уже зарегестрированы?</span>

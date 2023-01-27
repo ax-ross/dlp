@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="mr-2">
-            <button @click="updateTitle" class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">сохранить</button>
+            <button @click="updateTitle" class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-2xl">сохранить</button>
         </div>
         <div class="my-auto">
             <button @click="editTitle"><pencil-square-icon class="w-5 h-5"></pencil-square-icon></button>
@@ -26,7 +26,7 @@
 
 
     <div v-if="course.chat_id" class="mb-5">
-        <router-link class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl" :to="{name: 'chat', params: {'id': course.chat_id}}" >Открыть чат курса</router-link>
+        <router-link class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-2xl" :to="{name: 'chat', params: {'id': course.chat_id}}" >Открыть чат курса</router-link>
     </div>
 
 
@@ -37,10 +37,10 @@
                     <label class="flex items-center" for="studentEmail">Введите email студента:</label>
                     <input v-model="studentEmail" type="text" class="mb-2 ml-2 border rounded-lg p-1 pl-3" id="studentEmail" :placeholder="studentEmail">
                     <div>
-                        <button @click="addStudent" class="mb-2 ml-2 bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">добавить</button>
+                        <button @click="addStudent" class="mb-2 ml-2 bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-2xl">добавить</button>
                     </div>
                     <div>
-                        <button class="mb-2 ml-2 bg-red-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl" @click="addingStudent">отмена</button>
+                        <button class="mb-2 ml-2 bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-2xl" @click="addingStudent">отмена</button>
                     </div>
                 </div>
 
@@ -55,7 +55,7 @@
 
         </div>
         <div v-else class="mb-5">
-            <button  class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl" @click.prevent="addingStudent">Добавить ученика</button>
+            <button  class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-2xl" @click.prevent="addingStudent">Добавить ученика</button>
         </div>
     </div>
 
@@ -74,11 +74,11 @@
                     {{ student.name }}
                     <div v-if="authStore.user.role === 'teacher'">
                         <div v-if="studentRemoveId === student.id" class="ml-10">
-                            <button @click="removeStudent(student.email)" class="bg-red-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">Подтвердить удаление</button>
-                            <button @click="cancelRemoveStudent()" class="ml-2 bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">Отмена</button>
+                            <button @click="removeStudent(student.email)" class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-2xl">Подтвердить удаление</button>
+                            <button @click="cancelRemoveStudent()" class="ml-2 bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-2xl">Отмена</button>
                         </div>
                         <div v-else class="ml-10">
-                            <button v-if="authStore.user.role === 'teacher'" @click="removingStudent(student.id)" class="bg-red-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl">Удалить</button>
+                            <button v-if="authStore.user.role === 'teacher'" @click="removingStudent(student.id)" class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-2xl">Удалить</button>
                         </div>
                     </div>
 

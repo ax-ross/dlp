@@ -47,7 +47,7 @@
         </div>
         <div class="mt-2 flex">
             <textarea v-model="messageToSend" class="border rounded-lg p-1.5 pl-3 w-full"></textarea>
-            <button class="bg-blue-400 hover:bg-blue-dark text-white font-bold py-2 px-4 rounded-2xl" type="submit"
+            <button class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-2xl" type="submit"
                     @click.prevent="sendMessage">Отправить
             </button>
         </div>
