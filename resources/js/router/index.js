@@ -59,6 +59,15 @@ const routes = [
         },
         children: [
             {
+                path: '/profile',
+                name: 'profile',
+                component: () => import('../components/Profile/Profile.vue'),
+                meta: {
+                    middleware: [auth],
+                    title: 'Profile'
+                }
+            },
+            {
                 path: '/courses',
                 name: 'courses',
                 component: CourseIndex,

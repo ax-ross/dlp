@@ -31,8 +31,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{course}/remove-student', [\App\Http\Controllers\CourseController::class, 'removeStudent']);
     });
 
-
     Route::get('/chats/{chat}', [\App\Http\Controllers\ChatController::class, 'show']);
     Route::post('/chats/{chat}/publish', [\App\Http\Controllers\ChatController::class, 'publish']);
     Route::get('/chats/{chat}/messages', [\App\Http\Controllers\ChatController::class, 'messages']);
+
+    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'show']);
+    Route::post('/profile', [\App\Http\Controllers\ProfileController::class, 'update']);
+    Route::delete('/profile', [\App\Http\Controllers\ProfileController::class, 'destroy']);
 });

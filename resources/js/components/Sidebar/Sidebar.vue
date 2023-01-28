@@ -22,7 +22,7 @@
 
         <div class="flex text-center px-6 py-2.5 hover:text-sky-600 group" style="position: absolute; bottom: 20px">
             <div v-if="!sidebarStore.collapsed">
-                <button @click="logout" class="bg-red-500 text-white p-3 border rounded-2xl">Выйти</button>
+                <button @click="logout" class="bg-red-500 hover:bg-red-600 text-white p-3 border rounded-2xl">Выйти</button>
             </div>
             <div v-else>
                 <ArrowLeftOnRectangleIcon @click="logout"
@@ -34,7 +34,13 @@
 </template>
 
 <script>
-import {AcademicCapIcon, ChevronDoubleLeftIcon, HomeIcon, ArrowLeftOnRectangleIcon} from '@heroicons/vue/24/outline';
+import {
+    AcademicCapIcon,
+    ChevronDoubleLeftIcon,
+    HomeIcon,
+    ArrowLeftOnRectangleIcon,
+    UserCircleIcon
+} from '@heroicons/vue/24/outline';
 import {useSidebarStore} from "../../stores/sidebar";
 import {mapStores} from 'pinia';
 import axios from "axios";
@@ -53,6 +59,7 @@ export default {
     data() {
         return {
             navigation: [
+                {name: 'Профиль', route: 'profile', icon: UserCircleIcon},
                 {name: 'Главная', route: 'index', icon: HomeIcon},
                 {name: 'Курсы', route: 'courses', icon: AcademicCapIcon}
             ]
