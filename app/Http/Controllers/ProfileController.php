@@ -20,7 +20,7 @@ class ProfileController extends Controller
         $validated = $request->validated();
         $user = $request->user();
 
-        if ($validated['avatar']) {
+        if (isset($validated['avatar'])) {
             if (!$user->avatar === User::$defaultAvatar) {
                 Storage::delete($user->avatar);
             }
