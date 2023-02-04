@@ -23,12 +23,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/centrifugo/connect', [\App\Http\Controllers\CentrifugoProxyController::class, 'connect']);
 
     Route::prefix('/courses')->group(function () {
-        Route::get('/', [\App\Http\Controllers\CourseController::class, 'index']);
-        Route::post('/', [\App\Http\Controllers\CourseController::class, 'store']);
-        Route::get('/{course}', [\App\Http\Controllers\CourseController::class, 'show']);
-        Route::post('/{course}', [\App\Http\Controllers\CourseController::class, 'update']);
-        Route::post('/{course}/add-student', [\App\Http\Controllers\CourseController::class, 'addStudent']);
-        Route::post('/{course}/remove-student', [\App\Http\Controllers\CourseController::class, 'removeStudent']);
+        Route::get('/', [\App\Http\Controllers\Course\CourseController::class, 'index']);
+        Route::post('/', [\App\Http\Controllers\Course\CourseController::class, 'store']);
+        Route::get('/{course}', [\App\Http\Controllers\Course\CourseController::class, 'show']);
+        Route::post('/{course}', [\App\Http\Controllers\Course\CourseController::class, 'update']);
+        Route::post('/{course}/add-student', [\App\Http\Controllers\Course\CourseController::class, 'addStudent']);
+        Route::post('/{course}/remove-student', [\App\Http\Controllers\Course\CourseController::class, 'removeStudent']);
     });
 
     Route::get('/chats/{chat}', [\App\Http\Controllers\ChatController::class, 'show']);
@@ -39,3 +39,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/profile', [\App\Http\Controllers\ProfileController::class, 'update']);
     Route::delete('/profile', [\App\Http\Controllers\ProfileController::class, 'destroy']);
 });
+
+
+Route::post('courses/{course}/lessons', [\App\Http\Controllers\Course\LessonController::class, 'store']);

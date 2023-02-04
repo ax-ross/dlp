@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Course;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Course\AddStudentRequest;
 use App\Http\Requests\Course\RemoveStudentRequest;
 use App\Http\Requests\Course\StoreCourseRequest;
 use App\Http\Requests\Course\UpdateCourseRequest;
-use App\Http\Resources\ChatResource;
 use App\Http\Resources\CourseResource;
 use App\Models\Chat;
 use App\Models\Course;
