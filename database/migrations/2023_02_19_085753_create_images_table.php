@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lesson_attachments', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('lesson_id')->constrained();
             $table->string('path');
+            $table->nullableMorphs('imageable');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lesson_attachments');
+        Schema::dropIfExists('images');
     }
 };

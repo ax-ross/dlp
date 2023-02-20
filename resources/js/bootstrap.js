@@ -13,6 +13,7 @@ import {Centrifuge} from "centrifuge";
 const appUrl = 'http://127.0.0.1';
 
 window.axios = axios;
+window.appUrl = appUrl;
 
 window.axios.defaults.baseURL = appUrl;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

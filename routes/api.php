@@ -31,6 +31,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/{course}/remove-student', [\App\Http\Controllers\Course\CourseController::class, 'removeStudent']);
     });
 
+    Route::prefix('/courses/{course}/lessons')->group(function () {
+        Route::post('/', [\App\Http\Controllers\Course\LessonController::class, 'store']);
+        Route::get('/{lesson}', [\App\Http\Controllers\Course\LessonController::class, 'show']);
+    });
+
+    Route::post('upload-image', [\App\Http\Controllers\ImageController::class, 'store']);
+
     Route::get('/chats/{chat}', [\App\Http\Controllers\ChatController::class, 'show']);
     Route::post('/chats/{chat}/publish', [\App\Http\Controllers\ChatController::class, 'publish']);
     Route::get('/chats/{chat}/messages', [\App\Http\Controllers\ChatController::class, 'messages']);
@@ -41,4 +48,3 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-Route::post('courses/{course}/lessons', [\App\Http\Controllers\Course\LessonController::class, 'store']);

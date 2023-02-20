@@ -11,6 +11,8 @@ import CourseIndex from "../components/Course/Index.vue";
 import CourseShow from "../components/Course/Show.vue";
 import CourseCreate from "../components/Course/Create.vue"
 import Chat from "../components/Chat/Chat.vue";
+import LessonShow from "../components/Course/Lesson/Show.vue"
+import LessonCreate from "../components/Course/Lesson/Create.vue"
 
 const routes = [
     {
@@ -92,6 +94,24 @@ const routes = [
                 meta: {
                     middleware: [auth, teacher],
                     title: 'Creating course'
+                }
+            },
+            {
+                path: '/courses/:course_id/lessons/:lesson_id',
+                name: 'lessons.show',
+                component: LessonShow,
+                meta: {
+                    middleware: [auth],
+                    title: 'Show lesson'
+                }
+            },
+            {
+                path: '/courses/:course_id/lessons/create',
+                name: 'lessons.create',
+                component: LessonCreate,
+                meta: {
+                    middleware: [auth, teacher],
+                    title: 'Create lesson'
                 }
             },
             {

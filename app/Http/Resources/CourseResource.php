@@ -21,7 +21,8 @@ class CourseResource extends JsonResource
             'created_at' => $this->created_at,
             'students' => $this->students,
             'teacher' => $this->teacher,
-            'chat_id' => $this->chat->id
+            'chat_id' => $this->chat->id,
+            'lessons' => LessonResource::collection($this->lessons)
         ];
     }
 }

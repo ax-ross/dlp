@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\Imageable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Lesson extends Model
 {
-    use HasFactory;
+    use HasFactory, Imageable;
 
     protected $fillable = ['title', 'content', 'course_id'];
 

@@ -89,6 +89,25 @@
     </div>
 
 
+    <div v-if="authStore.user.role === 'teacher'">
+        <router-link :to="{name: 'lessons.create', params: {course_id: id}}" class="b-2 ml-2 bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-2xl">Добавить урок</router-link>
+    </div>
+
+    <div class="p-3">
+        <div class="mb-3">
+            Уроки:
+        </div>
+        <div v-for="lesson in course.lessons">
+            <div class="flex">
+                <router-link :to="{name: 'lessons.show', params: {course_id: course.id, lesson_id: lesson.id}}" class="border rounded-2xl cursor-pointer hover:shadow-xl p-5 flex">
+                    {{ lesson.title }}
+                </router-link>
+
+            </div>
+        </div>
+    </div>
+
+
 </template>
 
 <script>
@@ -110,7 +129,8 @@ export default {
             validationErrors: {},
             studentAdd: false,
             studentEmail: '',
-            studentRemoveId: null
+            studentRemoveId: null,
+            id: null
         }
     },
     computed: {

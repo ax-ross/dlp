@@ -15,6 +15,11 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^36.0.0",
+        "@ckeditor/ckeditor5-image": "^36.0.1",
+        "@ckeditor/ckeditor5-media-embed": "^36.0.1",
+        "@ckeditor/ckeditor5-upload": "^36.0.1",
+        "@ckeditor/ckeditor5-vue": "^4.0.1",
         "@heroicons/vue": "^2.0.12",
         "@vitejs/plugin-vue": "^3.1.0",
         "centrifuge": "^3.0.1",
