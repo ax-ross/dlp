@@ -58,7 +58,14 @@ export default {
         },
         updatedProfile() {
             this.newProfileData.append('name', this.name)
-            axios.post('/api/profile', this.newProfileData)
+            axios.post('/api/profile', this.newProfileData).then(data => {
+                this.user = data.data.data;
+                this.toggleEdit();
+            }).catch(response => {
+                if (response.status === 422) {
+                    this.validationErrors = response.data.errors;
+                }
+            })
         }
     }
 }
