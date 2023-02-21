@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
-    public function sendResetLink(SendResetPasswordRequest $request)
+    public function sendResetLink(SendResetPasswordRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
     {
         $email = $request->validated();
         $status =  Password::sendResetLink($email);
@@ -27,12 +27,12 @@ class ResetPasswordController extends Controller
         }
     }
 
-    public function showResetForm($token)
+    public function showResetForm($token): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('reset-password', compact('token'));
     }
 
-    public function resetPassword(ResetPasswordRequest $request)
+    public function resetPassword(ResetPasswordRequest $request): \Illuminate\Http\RedirectResponse
     {
         $validated = $request->validated();
         $status = Password::reset(

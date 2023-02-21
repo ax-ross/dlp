@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class CentrifugoProxyController extends Controller
 {
-    public function connect()
+    public function connect(): JsonResponse
     {
         Log::error(Auth::user());
         return new JsonResponse([

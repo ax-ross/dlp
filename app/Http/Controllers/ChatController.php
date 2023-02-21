@@ -15,7 +15,7 @@ class ChatController extends Controller
     {
     }
 
-    public function publish(Chat $chat, Request $request)
+    public function publish(Chat $chat, Request $request): \Illuminate\Http\Response
     {
         $requestData = $request->json()->all();
         $message = Message::create([
@@ -36,12 +36,12 @@ class ChatController extends Controller
         return response()->noContent();
     }
 
-    public function show(Chat $chat)
+    public function show(Chat $chat): ChatResource
     {
         return new ChatResource($chat);
     }
 
-    public function messages(Chat $chat)
+    public function messages(Chat $chat): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $messages = $chat->messages()->latest()->with('user')->paginate();
         $messages->setCollection($messages->getCollection()->reverse());

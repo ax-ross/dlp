@@ -12,12 +12,12 @@ class Lesson extends Model
 
     protected $fillable = ['title', 'content', 'course_id'];
 
-    public function course()
+    public function course(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Course::class);
     }
 
-    public function attachments()
+    public function attachments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(LessonAttachment::class);
     }

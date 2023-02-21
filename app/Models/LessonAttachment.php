@@ -11,7 +11,7 @@ class LessonAttachment extends Model
 
     protected $fillable = ['path', 'lesson_id'];
 
-    public function lesson()
+    public function lesson(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Lesson::class);
     }

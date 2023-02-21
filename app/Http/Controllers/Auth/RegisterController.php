@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request): \Illuminate\Http\Response
     {
         $credentials = $request->validated();
 

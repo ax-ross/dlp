@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
     {
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
@@ -20,7 +20,7 @@ class LoginController extends Controller
         }
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): \Illuminate\Http\Response
     {
         $request->session()->invalidate();
         $request->session()->regenerateToken();

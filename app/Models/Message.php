@@ -16,17 +16,17 @@ class Message extends Model
         'created_at' => 'datetime',
     ];
 
-    public function chat()
+    public function chat(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Chat::class);
     }
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'sender_id');
     }
 
-    protected function serializeDate(DateTimeInterface $date)
+    protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->diffForHumans();
     }

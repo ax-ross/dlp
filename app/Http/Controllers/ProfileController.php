@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    public function show(User $user)
+    public function show(User $user): UserResource
     {
         return new UserResource($user);
     }
 
-    public function update(UpdateProfileRequest $request)
+    public function update(UpdateProfileRequest $request): UserResource
     {
         $validated = $request->validated();
         $user = $request->user();
@@ -32,7 +32,7 @@ class ProfileController extends Controller
         return new UserResource($user->fresh());
     }
 
-    public function destroy(Request $request)
+    public function destroy(Request $request): \Illuminate\Http\Response
     {
         $request->user()->delete();
         return response()->noContent();

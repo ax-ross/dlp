@@ -11,22 +11,22 @@ class Course extends Model
 
     protected $fillable = ['title', 'teacher_id'];
 
-    public function teacher()
+    public function teacher(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'teacher_id', 'id');
     }
 
-    public function students()
+    public function students(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(User::class, 'course_student', 'course_id', 'user_id');
     }
 
-    public function lessons()
+    public function lessons(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Lesson::class);
     }
 
-    public function chat()
+    public function chat(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Chat::class);
     }

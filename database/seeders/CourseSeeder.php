@@ -14,7 +14,7 @@ class CourseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $students = User::students()->get();
         $teachers = User::teachers()->get();

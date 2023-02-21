@@ -15,12 +15,12 @@ use Illuminate\Validation\ValidationException;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return CourseResource::collection(auth()->user()->getCourses());
     }
 
-    public function store(StoreCourseRequest $request)
+    public function store(StoreCourseRequest $request): CourseResource
     {
         $this->authorize('create', Course::class);
         $validated = $request->validated();
@@ -34,19 +34,19 @@ class CourseController extends Controller
         return new CourseResource($course);
     }
 
-    public function show(Course $course)
+    public function show(Course $course): CourseResource
     {
         return new CourseResource($course);
     }
 
-    public function update(UpdateCourseRequest $request, Course $course)
+    public function update(UpdateCourseRequest $request, Course $course): CourseResource
     {
         $validated = $request->validated();
         $course->update($validated);
         return new CourseResource($course->fresh());
     }
 
-    public function addStudent(AddStudentRequest $request, Course $course)
+    public function addStudent(AddStudentRequest $request, Course $course): CourseResource
     {
         $student_email = $request->validated();
         $student = User::where('email', $student_email)->first();
@@ -58,7 +58,7 @@ class CourseController extends Controller
         return new CourseResource($course);
     }
 
-    public function removeStudent(RemoveStudentRequest $request, Course $course)
+    public function removeStudent(RemoveStudentRequest $request, Course $course): CourseResource
     {
         $student_email = $request->validated();
         $student = User::where('email', $student_email)->first();

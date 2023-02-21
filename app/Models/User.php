@@ -68,12 +68,12 @@ class User extends Authenticatable
         return $query->where('role', 'teacher');
     }
 
-    public function chats()
+    public function chats(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Chat::class, 'users_chats');
     }
 
-    public function teacherCourses()
+    public function teacherCourses(): ?\Illuminate\Database\Eloquent\Relations\HasMany
     {
         if ($this->isStudent()) {
             return null;
@@ -81,7 +81,7 @@ class User extends Authenticatable
         return $this->hasMany(Course::class, 'teacher_id', 'id');
     }
 
-    public function studentCourses()
+    public function studentCourses(): ?\Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         if ($this->isTeacher()) {
             return null;

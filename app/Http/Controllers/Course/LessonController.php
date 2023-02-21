@@ -11,12 +11,12 @@ use App\Models\LessonAttachment;
 
 class LessonController extends Controller
 {
-    public function index(Course $course)
+    public function index(Course $course): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
-        return $course->lessons;
+        return LessonResource::collection($course->lessons);
     }
 
-    public function store(StoreLessonRequest $request, Course $course)
+    public function store(StoreLessonRequest $request, Course $course): LessonResource
     {
         $validated = $request->validated();
         $lesson = $course->lessons()->create($validated);
@@ -28,7 +28,7 @@ class LessonController extends Controller
         return new LessonResource($lesson);
     }
 
-    public function show(Course $course, Lesson $lesson)
+    public function show(Course $course, Lesson $lesson): LessonResource
     {
         return new LessonResource($lesson);
     }
