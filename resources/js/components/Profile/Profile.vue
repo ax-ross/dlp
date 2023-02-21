@@ -11,15 +11,15 @@
         </div>
         <div v-else>
             <input v-model="name" type="text" class="border rounded-lg p-1 pl-3" id="name">
-            <div v-if="validationErrors.title" class="mt-1.5">
-                <div v-for="error in validationErrors.title">
+            <button @click="updatedProfile  " class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-2xl mr-3">Сохранить</button>
+            <button @click="toggleEdit" class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-2xl">Отмена</button>
+            <div v-if="validationErrors.name" class="mt-1.5">
+                <div v-for="error in validationErrors.name">
                     <div class="text-red-600 text-sm">
                         {{ error }}
                     </div>
                 </div>
             </div>
-            <button @click="updatedProfile  " class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-2xl mr-3">Сохранить</button>
-            <button @click="toggleEdit" class="bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-2xl">Отмена</button>
         </div>
     </div>
 
@@ -61,9 +61,11 @@ export default {
             axios.post('/api/profile', this.newProfileData).then(data => {
                 this.user = data.data.data;
                 this.toggleEdit();
-            }).catch(response => {
-                if (response.status === 422) {
-                    this.validationErrors = response.data.errors;
+            }).catch(error => {
+                if (error.response.status === 422) {
+                    console.log('test');
+                    this.validationErrors = error.response.data.errors;
+                    console.log(this.validationErrors);
                 }
             })
         }
