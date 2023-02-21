@@ -45,7 +45,7 @@ export default {
         resetPassword() {
             axios.get('/sanctum/csrf-cookie').then(response => {
                 axios.post('/forgot-password', {email: this.email}).then( () => {
-                    this.successMessage = 'Письмо для сменя пароля успешно направлено на Вашу почту'
+                    this.successMessage = 'Письмо для сменя пароля успешно направлено на Вашу почту';
                 }).catch(({response}) => {
                     if (response.status === 422) {
                         this.validationErrors = response.data.errors;

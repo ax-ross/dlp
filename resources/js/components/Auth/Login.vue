@@ -61,9 +61,9 @@ export default {
                 axios.post('/login', {email: this.email, password: this.password}).then(async ({data}) => {
                     await this.authStore.addAuthUserToStore();
                     if (this.authStore.authenticated) {
-                        await router.push({name: 'index'})
+                        await router.push({name: 'index'});
                     } else {
-                        await router.push({name: 'welcome'})
+                        await router.push({name: 'welcome'});
                     }
                 }).catch(({response}) => {
                     if (response.status === 422) {

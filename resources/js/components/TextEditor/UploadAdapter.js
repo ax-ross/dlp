@@ -3,7 +3,7 @@ export class UploadAdapter {
         // The file loader instance to use during the upload. It sounds scary but do not
         // worry — the loader will be passed into the adapter later on in this guide.
         this.loader = loader;
-        this.uploadPath = uploadPath
+        this.uploadPath = uploadPath;
     }
     // Starts the upload process.
     upload() {
@@ -78,9 +78,9 @@ export class UploadAdapter {
         // the CSRF token generated earlier by your application.
         // Send the request.
 
-        let token = document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN=')).split('=')[1]
+        let token = document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN=')).split('=')[1];
         token = decodeURIComponent(token);
-        this.xhr.setRequestHeader('X-XSRF-TOKEN', token)
+        this.xhr.setRequestHeader('X-XSRF-TOKEN', token);
         this.xhr.send(data);
 
     }

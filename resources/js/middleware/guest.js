@@ -4,7 +4,7 @@ export default function guest({ next, authStore, nextMiddleware }) {
            if (authStore.authenticated) {
                next({name: 'index'})
            } else {
-               nextMiddleware()
+               nextMiddleware();
            }
         });
     } else {

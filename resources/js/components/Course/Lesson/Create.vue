@@ -47,8 +47,7 @@ export default {
     methods: {
         store() {
             axios.post(`/api/courses/${this.$route.params.course_id}/lessons`, {'title': this.title, 'content': this.content}).then(() => {
-                console.log(this.content)
-                router.push({name: 'courses.show', params: {id: this.$route.params.course_id}})
+                router.push({name: 'courses.show', params: {id: this.$route.params.course_id}});
             })
         }
     }

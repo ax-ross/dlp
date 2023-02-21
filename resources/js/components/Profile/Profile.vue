@@ -54,18 +54,16 @@ export default {
             this.isEditing = !this.isEditing;
         },
         uploadAvatar() {
-            this.newProfileData.append('avatar', this.$refs['avatar-upload'].files[0])
+            this.newProfileData.append('avatar', this.$refs['avatar-upload'].files[0]);
         },
         updatedProfile() {
-            this.newProfileData.append('name', this.name)
+            this.newProfileData.append('name', this.name);
             axios.post('/api/profile', this.newProfileData).then(data => {
                 this.user = data.data.data;
                 this.toggleEdit();
             }).catch(error => {
                 if (error.response.status === 422) {
-                    console.log('test');
                     this.validationErrors = error.response.data.errors;
-                    console.log(this.validationErrors);
                 }
             })
         }

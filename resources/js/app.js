@@ -9,7 +9,7 @@ import CKEditor from "@ckeditor/ckeditor5-vue";
 const pinia = createPinia();
 const app = createApp({
     components: {
-        App,
+        App
     }
 });
 

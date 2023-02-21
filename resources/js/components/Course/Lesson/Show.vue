@@ -24,8 +24,7 @@ export default {
     methods: {
         getLesson() {
             axios.get(`/api/courses/${this.$route.params.course_id}/lessons/${this.$route.params.lesson_id}`).then((data) => {
-                this.lesson = data.data.data
-                console.log(data)
+                this.lesson = data.data.data;
             })
         }
     }

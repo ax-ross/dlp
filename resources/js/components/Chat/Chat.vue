@@ -86,7 +86,7 @@ export default {
     methods: {
         getChat() {
             axios.get(`/api/chats/${this.$route.params.id}`).then((data) => {
-                this.chat = data.data.data
+                this.chat = data.data.data;
             })
         },
         subscribeChat() {
@@ -98,16 +98,16 @@ export default {
 
             this.sub = centrifuge.newSubscription(`personal:user#${this.authStore.user.id}`);
             this.sub.on('publication', (message) => {
-                this.messages.push(message.data)
-                this.scrollDown()
+                this.messages.push(message.data);
+                this.scrollDown();
             })
             this.sub.subscribe();
         },
         loadMessage() {
             axios.get(`/api/chats/${this.$route.params.id}/messages?page=${this.currentPage}`).then((data) => {
-                this.messages.push(...data.data.data)
-                this.currentPage = data.data.meta.current_page
-                this.lastPage = data.data.meta.last_page
+                this.messages.push(...data.data.data);
+                this.currentPage = data.data.meta.current_page;
+                this.lastPage = data.data.meta.last_page;
                 this.scrollDown();
                 this.setUpInterSectionObserver();
             })
@@ -115,7 +115,7 @@ export default {
         scrollDown() {
             this.$nextTick().then(() => {
                 let chatEl = this.$refs.chat;
-                chatEl.scrollTop = chatEl.scrollHeight
+                chatEl.scrollTop = chatEl.scrollHeight;
             })
         },
         sendMessage() {
@@ -130,7 +130,7 @@ export default {
         },
         restoreScrollPosition() {
             let chat = this.$refs.chat;
-            chat.scrollTop = chat.scrollHeight - this.previousScrollHeightMinusScrollTop
+            chat.scrollTop = chat.scrollHeight - this.previousScrollHeightMinusScrollTop;
         },
         setUpInterSectionObserver() {
             let options = {
@@ -140,7 +140,7 @@ export default {
                 this.handleIntersection,
                 options
             );
-            this.listEndObserver.observe(this.$refs.sentinel)
+            this.listEndObserver.observe(this.$refs.sentinel);
         },
         handleIntersection([entry]) {
             if (entry.isIntersecting && (this.currentPage < this.lastPage)) {
@@ -150,9 +150,9 @@ export default {
         async loadMoreMessages() {
             this.recordScrollPosition();
             await axios.get(`/api/chats/${this.$route.params.id}/messages?page=${this.currentPage + 1}`).then((data) => {
-                this.messages.unshift(...data.data.data)
-                this.currentPage = data.data.meta.current_page
-                this.lastPage = data.data.meta.last_page
+                this.messages.unshift(...data.data.data);
+                this.currentPage = data.data.meta.current_page;
+                this.lastPage = data.data.meta.last_page;
             })
             this.$nextTick().then(() => {
                 this.restoreScrollPosition();

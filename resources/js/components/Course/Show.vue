@@ -139,18 +139,18 @@ export default {
     created() {
         this.id = this.$route.params['id'];
         axios.get(`/api/courses/${this.$route.params['id']}`).then( (data) => {
-            this.course = data.data.data
+            this.course = data.data.data;
         })
     },
     methods: {
         editTitle() {
-            this.titleEdit = !this.titleEdit
-            this.newTitle = this.course.title
+            this.titleEdit = !this.titleEdit;
+            this.newTitle = this.course.title;
         },
         updateTitle() {
             axios.post(`/api/courses/${this.course.id}`, {title: this.newTitle}).then(() => {
                 axios.get(`/api/courses/${this.course.id}`).then((data) => {
-                    this.course = data.data.data
+                    this.course = data.data.data;
                     this.titleEdit = false;
                 })
             }).catch(({response}) => {
@@ -165,7 +165,7 @@ export default {
         addStudent() {
             axios.post(`/api/courses/${this.course.id}/add-student`, {email: this.studentEmail}).then(() => {
                 axios.get(`/api/courses/${this.course.id}`).then((data) => {
-                    this.course = data.data.data
+                    this.course = data.data.data;
                     this.studentAdd = false;
                 })
             }).catch(({response}) => {
@@ -175,18 +175,18 @@ export default {
             });
         },
         removingStudent(studentRemoveId) {
-            this.studentRemoveId = studentRemoveId
+            this.studentRemoveId = studentRemoveId;
         },
         removeStudent(studentEmail) {
             axios.post(`/api/courses/${this.course.id}/remove-student`, {email: studentEmail}).then(() => {
                 axios.get(`/api/courses/${this.course.id}`).then((data) => {
-                    this.course = data.data.data
+                    this.course = data.data.data;
                     this.studentAdd = false;
                 })
             });
         },
         cancelRemoveStudent() {
-            this.studentRemoveId = null
+            this.studentRemoveId = null;
         }
     }
 }
