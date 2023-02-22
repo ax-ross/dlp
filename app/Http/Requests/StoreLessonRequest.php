@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreLessonRequest extends FormRequest
 {
-    public array $images;
+    public array $images = [];
 
     /**
      * @return array
