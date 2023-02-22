@@ -25,6 +25,11 @@ class LessonController extends Controller
                 LessonAttachment::create(['path' => $attachment->store('/attachments'), 'lesson_id' => $lesson->id]);
             }
         }
+
+        foreach ($request->images as $image) {
+            $lesson->images()->save($image);
+        }
+
         return new LessonResource($lesson);
     }
 

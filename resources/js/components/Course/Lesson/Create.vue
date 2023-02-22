@@ -46,7 +46,8 @@ export default {
     },
     methods: {
         store() {
-            axios.post(`/api/courses/${this.$route.params.course_id}/lessons`, {'title': this.title, 'content': this.content}).then(() => {
+            let imagePaths = Array.from(new DOMParser().parseFromString(this.content, 'text/html').querySelectorAll('img')).map(img => img.getAttribute('src'));
+            axios.post(`/api/courses/${this.$route.params.course_id}/lessons`, {'title': this.title, 'content': this.content, 'imagePaths': imagePaths}).then(() => {
                 router.push({name: 'courses.show', params: {id: this.$route.params.course_id}});
             })
         }
