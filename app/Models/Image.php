@@ -16,13 +16,6 @@ class Image extends Model
     {
         return $this->morphTo();
     }
-    protected function path(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => url('storage', $value),
-        );
-    }
-
 
     public static function findImageByAbsolutePath($absolutePath): Image|null
     {

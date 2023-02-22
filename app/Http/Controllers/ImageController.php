@@ -11,7 +11,7 @@ class ImageController extends Controller
     {
         $image = Image::create(['path' => $request->file('image')->store('/images', 'public')]);
         return response()->json([
-            'url' => $image->path
+            'url' => url('storage', $image->path)
         ]);
     }
 }
