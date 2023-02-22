@@ -3,9 +3,7 @@
         <div>
             {{ lesson.title }}
         </div>
-        <div v-html="lesson.content">
-
-        </div>
+        <div class="no-tailwindcss-base" v-html="lesson.content"></div>
     </div>
 
 </template>
@@ -19,7 +17,7 @@ export default {
         }
     },
     mounted() {
-        this.getLesson()
+        this.getLesson();
     },
     methods: {
         getLesson() {
