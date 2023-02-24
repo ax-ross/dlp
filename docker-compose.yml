@@ -71,6 +71,15 @@ services:
                 hard: 65535
         networks:
             - app-network
+    cron:
+        build:
+            context: .
+            dockerfile: cron.dockerfile
+        container_name: cron
+        volumes:
+            - ./:/var/www
+        networks:
+            - app-network
 networks:
     app-network:
         driver: bridge
