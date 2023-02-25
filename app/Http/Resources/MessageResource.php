@@ -20,7 +20,7 @@ class MessageResource extends JsonResource
         return [
             'id' => $this->id,
             'message' => $this->message,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->diffForHumans(),
             'chat_id' => $this->chat_id,
             'sender_id' => $this->sender_id,
             'updated_at' => $this->updated_at,

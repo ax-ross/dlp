@@ -24,6 +24,9 @@
                         <div>
                             {{ message.message }}
                         </div>
+                        <div class="text-end">
+                            {{ message.created_at }}
+                        </div>
 
                     </div>
                 </div>
