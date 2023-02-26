@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Chat;
 use App\Models\Course;
 use App\Models\User;
+use Database\Factories\ChatFactory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,15 +18,14 @@ class CourseSeeder extends Seeder
      */
     public function run(): void
     {
-        $students = User::students()->get();
-        $teachers = User::teachers()->get();
+        $teachers = User::factory()->count(5)->teacher()->create();
+        $studentIds = User::factory()->count(20)->student()->create()->pluck('id')->toArray();
 
-        $courses = [];
         foreach ($teachers as $teacher) {
-            $courses[] = $teacher->teacherCourses()->create(Course::factory()->make()->getAttributes());
-        }
-        foreach ($courses as $course) {
-            $course->students()->attach($students->pluck('id')->toArray());
+            $courses = $teacher->teacherCourses()->saveMany(Course::factory()->count(10)->has(Chat::factory())->recycle($teachers)->create());
+            foreach ($courses as $course) {
+                $course->students()->attach($studentIds);
+            }
         }
     }
 }
