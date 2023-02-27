@@ -9,7 +9,7 @@ class Course extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'teacher_id'];
+    protected $fillable = ['title'];
 
     public function teacher(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

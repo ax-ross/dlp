@@ -54,7 +54,7 @@ class CoursePolicy
      */
     public function update(User $user, Course $course): Response|bool
     {
-        //
+        return $course->teacher_id === $user->id;
     }
 
     /**

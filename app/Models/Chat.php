@@ -9,7 +9,7 @@ class Chat extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'course_id'];
+    protected $fillable = ['title'];
 
     public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

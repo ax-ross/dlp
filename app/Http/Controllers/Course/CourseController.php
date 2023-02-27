@@ -24,10 +24,9 @@ class CourseController extends Controller
     {
         $this->authorize('create', Course::class);
         $validated = $request->validated();
-        $validated['teacher_id'] = $request->user()->id;
-        $course = Course::create($validated);
-
-        $chat = Chat::create(['title' => $validated['title'], 'course_id' => $course->id]);
+        $user = $request->user();
+        $course = $user->teacherCourses()->create($validated);
+        $chat = $course->chat()->create($validated);
         $chat->users()->attach($request->user()->id);
 
 
@@ -41,6 +40,7 @@ class CourseController extends Controller
 
     public function update(UpdateCourseRequest $request, Course $course): CourseResource
     {
+        $this->authorize('update', $course);
         $validated = $request->validated();
         $course->update($validated);
         return new CourseResource($course->fresh());
