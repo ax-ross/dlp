@@ -48,18 +48,20 @@ class CourseController extends Controller
 
     public function addStudent(AddStudentRequest $request, Course $course): CourseResource
     {
+        $this->authorize('update', $course);
         $student_email = $request->validated();
         $student = User::where('email', $student_email)->first();
         if ($course->students->contains($student->id)) {
-            throw ValidationException::withMessages(['email' => 'пользователь с данным email уже добавлен ']);
+            throw ValidationException::withMessages(['email' => 'пользователь с данным email уже добавлен']);
         }
-        $course->students()->syncWithoutDetaching($student->id);
-        $course->chat->users()->syncWithoutDetaching($student->id);
+        $course->students()->attach($student->id);
+        $course->chat->users()->attach($student->id);
         return new CourseResource($course);
     }
 
     public function removeStudent(RemoveStudentRequest $request, Course $course): CourseResource
     {
+        $this->authorize('update', $course);
         $student_email = $request->validated();
         $student = User::where('email', $student_email)->first();
         $course->students()->detach($student->id);
